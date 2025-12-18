@@ -1,0 +1,2929 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estudante - Somos Um</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- 1. CSS do Módulo João IA -->
+    <link rel="stylesheet" href="public/modules/joao-ia/joao-ia.css" />
+    <!-- icone do site -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="public/assets/img/icons/estu.ico"
+    />
+
+    <style>
+      /* ========== VARIÁVEIS E RESET ========== */
+      :root {
+        --color-primary-terracotta: #a55734;
+        --color-background-deep: #6f2626;
+        --color-accent-gold: #ffd700;
+        --color-text-dark: #2c2c2c;
+        --color-card-light: #f7eedd;
+        --color-contrast-green: #4b5320;
+        --color-african-blue: #1e3a5f;
+        --color-african-purple: #5d3a6f;
+
+        --bg-primary: var(--color-background-deep);
+        --bg-secondary: white;
+        --bg-tertiary: #f8f9fa;
+        --text-primary: var(--color-text-dark);
+        --text-secondary: white;
+        --accent-color: var(--color-primary-terracotta);
+        --border-color: #e0e0e0;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        --transition: all 0.3s ease;
+      }
+
+      .dark-mode {
+        --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --bg-secondary: #1e1e1e;
+        --bg-tertiary: #2d2d2d;
+        --text-primary: #e0e0e0;
+        --text-secondary: #ffffff;
+        --accent-color: var(--color-primary-terracotta);
+        --border-color: #444;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+        color: var(--text-primary);
+      }
+
+      body {
+        background: var(--bg-primary);
+        min-height: 100vh;
+        padding: 20px;
+        transition: all 0.3s ease;
+        scroll-behavior: smooth;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* ========== ESTRUTURA PRINCIPAL ========== */
+      .container {
+        position: relative;
+        background-color: var(--bg-secondary);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        z-index: 10;
+        border: 1px solid var(--border-color);
+        margin-top: 100px;
+      }
+
+      /* Elementos decorativos sutis */
+      .african-pattern {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.03;
+      }
+
+      .pattern-1 {
+        background-image: radial-gradient(
+          circle,
+          var(--color-accent-gold) 1px,
+          transparent 1px
+        );
+        background-size: 30px 30px;
+      }
+
+      /* ========== NAVBAR SIMPLIFICADA ========== */
+      .nav-bar {
+        width: calc(100% - 40px);
+        background: var(--bg-secondary);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        padding: 15px 0;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        overflow: visible !important;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        border: 1px solid var(--border-color);
+        transform: translateY(0);
+      }
+
+      .nav-bar.hidden {
+        transform: translateY(-100px);
+      }
+
+      .nav-bar.scrolled {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 15px 15px;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        min-height: 60px;
+        position: relative;
+        z-index: 1001;
+      }
+
+      .nav-header {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 15px;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: 2px solid var(--accent-color);
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        z-index: 1001;
+        display: none;
+      }
+
+      .toggle-btn:hover {
+        background: var(--accent-color);
+        color: var(--bg-secondary);
+        transform: rotate(90deg);
+      }
+
+      .nav-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex: 1;
+        justify-content: center;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .nav-links.show {
+        display: flex !important;
+        animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .nav-links li {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        padding: 10px 16px;
+        text-decoration: none;
+        color: var(--text-primary);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        white-space: nowrap;
+        font-size: 0.9rem;
+        border: 2px solid transparent;
+        background: transparent;
+      }
+
+      .nav-links a:hover {
+        background: var(--accent-color);
+        color: var(--bg-secondary);
+        border: 2px solid var(--accent-color);
+      }
+
+      .nav-links a.active {
+        background: var(--bg-secondary);
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+      }
+
+      .nav-links i {
+        font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+        margin-right: 6px;
+        flex-shrink: 0;
+      }
+
+      /* Área da Conta do Usuário */
+      .user-account {
+        position: static;
+        margin-left: auto;
+      }
+
+      .user-btn {
+        display: flex;
+        align-items: center;
+        background: none;
+        border: 2px solid var(--accent-color);
+        border-radius: 50px;
+        padding: 8px 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--text-primary);
+        font-weight: 600;
+        position: relative;
+        z-index: 1002;
+      }
+
+      .user-btn:hover {
+        background: var(--accent-color);
+        color: var(--bg-secondary);
+      }
+
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--bg-secondary);
+        font-weight: bold;
+        margin-right: 8px;
+        font-size: 0.9rem;
+      }
+
+      .user-name {
+        margin-right: 5px;
+        font-size: 0.9rem;
+      }
+
+      /* DROPDOWN */
+      .user-dropdown {
+        position: fixed !important;
+        top: 90px !important;
+        right: 20px !important;
+        background: var(--bg-secondary);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        min-width: 200px;
+        padding: 10px 0;
+        margin-top: 0 !important;
+        display: none;
+        z-index: 1100 !important;
+        border: 1px solid var(--border-color);
+        animation: dropdownFade 0.3s ease;
+        max-width: 250px;
+      }
+
+      .user-dropdown.show {
+        display: block !important;
+      }
+
+      .user-dropdown::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        right: 20px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid var(--bg-secondary);
+        z-index: 1101;
+      }
+
+      @keyframes dropdownFade {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .dropdown-item:hover {
+        background: var(--bg-tertiary);
+      }
+
+      .dropdown-item i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .dropdown-divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 8px 0;
+      }
+
+      /* ========== CONTEÚDO PRINCIPAL ========== */
+      .container-content {
+        position: relative;
+        z-index: 4;
+        padding: 0;
+        background-color: transparent;
+      }
+
+      /* Header da Página do Estudante */
+      .page-header {
+        position: relative;
+        overflow: hidden !important;
+        padding: 40px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--accent-color), #8c472a);
+        border-bottom: 3px solid var(--border-color);
+        min-height: 180px;
+        margin-bottom: 30px;
+      }
+
+      .page-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          transparent 30%,
+          rgba(255, 215, 0, 0.1) 50%,
+          transparent 70%
+        );
+        animation: shimmer 3s infinite linear;
+        z-index: 1;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .header-logo {
+        max-width: 400px;
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.3));
+      }
+
+      /* Layout de Conteúdo */
+      .content-wrapper {
+        display: grid;
+        gap: 30px;
+        padding: 0 30px 40px;
+      }
+
+      /* Seções com fundo branco para melhor legibilidade */
+      .content-section {
+        background: var(--bg-secondary);
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+      }
+
+      .content-section:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Seções Gerais */
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 15px;
+      }
+
+      .section-header i {
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        margin-right: 15px;
+      }
+
+      .section-header h2 {
+        font-family: "Fugaz One", cursive;
+        color: var(--accent-color);
+        font-size: 1.8rem;
+      }
+
+      /* Card de Destaque / Continuação */
+      .continue-studying {
+        background: var(--bg-tertiary);
+        border-radius: 12px;
+        padding: 25px;
+        border-left: 5px solid var(--accent-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: var(--transition);
+      }
+
+      .continue-studying:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .continue-info h3 {
+        margin-bottom: 8px;
+        color: var(--text-primary);
+        font-size: 1.3rem;
+      }
+
+      .progress-simple {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .progress-bar {
+        width: 200px;
+        height: 8px;
+        background: #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 10px 0;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--color-contrast-green),
+          #6b8e23
+        );
+        width: 60%;
+        transition: width 0.5s ease;
+        border-radius: 4px;
+      }
+
+      .btn-continue {
+        padding: 12px 25px;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-continue:hover {
+        background: #8c472a;
+        transform: translateX(5px);
+      }
+
+      /* Grid de Módulos de Estudo */
+      .modules-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+      }
+
+      .module-card {
+        background: var(--bg-tertiary);
+        border: 2px solid var(--border-color);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .module-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent-color);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .module-header {
+        height: 100px;
+        background: linear-gradient(135deg, var(--accent-color), #8c472a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .module-header::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          transparent 30%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 70%
+        );
+        animation: shimmer 3s infinite linear;
+      }
+
+      .module-body {
+        padding: 20px;
+      }
+
+      .module-tag {
+        background: var(--bg-secondary);
+        color: var(--accent-color);
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 10px;
+        border: 1px solid var(--accent-color);
+      }
+
+      .module-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+      }
+
+      .module-desc {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .module-link {
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: var(--transition);
+      }
+
+      .module-link:hover {
+        text-decoration: underline;
+        gap: 10px;
+      }
+
+      /* Ferramentas de Estudo */
+      .tools-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+      }
+
+      .tool-box {
+        background: var(--bg-tertiary);
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        border: 2px solid var(--border-color);
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tool-box:hover {
+        background: var(--bg-secondary);
+        border-color: var(--accent-color);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .tool-icon {
+        font-size: 2.5rem;
+        color: var(--accent-color);
+        margin-bottom: 15px;
+        transition: var(--transition);
+      }
+
+      .tool-box:hover .tool-icon {
+        transform: scale(1.2);
+      }
+
+      .tool-title {
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      .tool-desc {
+        font-size: 0.85rem;
+        color: #666;
+        line-height: 1.4;
+      }
+
+      /* Material de Apoio */
+      .resources-list {
+        list-style: none;
+      }
+
+      .resource-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid var(--border-color);
+        transition: var(--transition);
+        border-radius: 8px;
+        margin-bottom: 5px;
+        background: var(--bg-tertiary);
+      }
+
+      .resource-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .resource-item:hover {
+        background: var(--bg-secondary);
+        padding-left: 20px;
+        transform: translateX(5px);
+      }
+
+      .resource-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--bg-secondary);
+        border: 2px solid var(--accent-color);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        margin-right: 15px;
+        font-size: 1.2rem;
+      }
+
+      .resource-info {
+        flex: 1;
+      }
+
+      .resource-info h4 {
+        font-size: 1rem;
+        margin-bottom: 3px;
+        color: var(--text-primary);
+      }
+
+      .resource-info span {
+        font-size: 0.85rem;
+        color: #666;
+      }
+
+      .resource-action {
+        margin-left: 15px;
+        color: var(--accent-color);
+        font-size: 1.2rem;
+        transition: var(--transition);
+      }
+
+      .resource-action:hover {
+        transform: scale(1.2);
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--bg-tertiary);
+        padding: 30px;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        margin-top: 40px;
+        border-radius: 0 0 15px 15px;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-logo {
+        font-family: "Fugaz One", cursive;
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        font-weight: bold;
+      }
+
+      .footer-info p {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      /* Direitos autorais */
+      .copyright {
+        text-align: center;
+        padding: 20px;
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-size: 0.9rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      /* ========== MODAIS ========== */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1200;
+      }
+
+      .modal-content {
+        background-color: var(--bg-secondary);
+        padding: 30px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        animation: modalFade 0.3s;
+        color: var(--text-primary);
+        border: 3px solid var(--accent-color);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      /* Estilos para modais de configurações (igual ao index) */
+      .config-modal-content {
+        max-width: 600px;
+        text-align: left;
+      }
+
+      .config-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        background: var(--bg-tertiary);
+      }
+
+      .config-section h3 {
+        color: var(--accent-color);
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .config-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px 0;
+      }
+
+      /* Botões interruptor (switch) igual ao index */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+        vertical-align: middle;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 24px;
+        border: 2px solid #ccc;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      select {
+        padding: 8px 12px;
+        border: 2px solid var(--border-color);
+        border-radius: 5px;
+        background-color: var(--bg-secondary);
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      @keyframes modalFade {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal h2 {
+        color: var(--accent-color);
+        margin-bottom: 15px;
+        font-family: "Fugaz One", cursive;
+        font-size: 2.2rem;
+        font-weight: 700;
+      }
+
+      .modal p {
+        margin-bottom: 20px;
+        line-height: 1.6;
+        font-weight: 600;
+      }
+
+      .close-button {
+        background-color: var(--accent-color);
+        color: var(--bg-secondary);
+        border: none;
+        padding: 10px 25px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 700;
+        border: 2px solid var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      .close-button:hover {
+        background-color: var(--bg-secondary);
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+        transform: scale(1.05);
+      }
+
+      /* Caixinha de Ajuda */
+      .help-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--bg-secondary);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        padding: 30px;
+        z-index: 1201;
+        max-width: 600px;
+        width: 90%;
+        display: none;
+        border: 3px solid var(--accent-color);
+        animation: helpBoxFade 0.3s ease-out;
+      }
+
+      @keyframes helpBoxFade {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .help-box-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 15px;
+      }
+
+      .help-box-header h2 {
+        color: var(--accent-color);
+        font-family: "Fugaz One", cursive;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+
+      .close-help-box {
+        background: none;
+        border: none;
+        color: var(--accent-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .close-help-box:hover {
+        transform: scale(1.2);
+      }
+
+      .help-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .help-item {
+        background: var(--bg-tertiary);
+        padding: 15px;
+        border-radius: 10px;
+        border-left: 4px solid var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      .help-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .help-item-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .help-item-header i {
+        font-size: 1.3rem;
+        color: var(--accent-color);
+        margin-right: 10px;
+        width: 30px;
+        text-align: center;
+      }
+
+      .help-item-header h3 {
+        color: var(--accent-color);
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .help-item p {
+        margin: 0;
+        line-height: 1.5;
+        font-weight: 600;
+      }
+
+      .help-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1199;
+        display: none;
+      }
+
+      /* ========== RESPONSIVIDADE ========== */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .nav-bar {
+          width: calc(100% - 20px);
+          left: 10px;
+          top: 10px;
+          overflow: visible !important;
+        }
+
+        .container {
+          margin-top: 70px;
+        }
+
+        .nav-container {
+          flex-wrap: wrap;
+          padding: 0 20px;
+          gap: 10px;
+        }
+
+        .nav-header {
+          order: 1;
+          flex: 1;
+        }
+
+        .user-account {
+          order: 2;
+          margin-left: 0;
+        }
+
+        .nav-content {
+          order: 3;
+          width: 100%;
+          flex-direction: column;
+          display: none;
+        }
+
+        .nav-content.show {
+          display: flex;
+          animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .user-dropdown {
+          position: fixed !important;
+          top: 80px !important;
+          right: 10px !important;
+          left: 10px !important;
+          width: auto !important;
+          max-width: calc(100% - 20px);
+          z-index: 1100 !important;
+          margin-top: 0 !important;
+        }
+
+        .user-dropdown::before {
+          right: 20px;
+          left: auto;
+        }
+
+        .toggle-btn {
+          display: flex;
+        }
+
+        .nav-links {
+          width: 100%;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .nav-links a {
+          justify-content: flex-start;
+          padding: 12px 16px;
+          font-size: 0.9rem;
+        }
+
+        .nav-links span {
+          display: inline-block;
+          margin-left: 10px;
+        }
+
+        .nav-links i {
+          margin-right: 8px;
+          font-size: 1.1rem;
+        }
+
+        .container-content {
+          padding: 0;
+        }
+
+        .page-header {
+          padding: 30px 20px;
+          min-height: 150px;
+          margin-bottom: 20px;
+        }
+
+        .header-logo {
+          max-width: 300px;
+        }
+
+        .content-wrapper {
+          padding: 0 15px 30px;
+          gap: 20px;
+        }
+
+        .content-section {
+          padding: 20px;
+        }
+
+        .continue-studying {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
+        }
+
+        .btn-continue {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .progress-bar {
+          width: 100%;
+        }
+
+        .tools-section {
+          grid-template-columns: 1fr;
+        }
+
+        .modules-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 20px;
+          text-align: center;
+        }
+
+        .help-box {
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          margin-top: 60px;
+        }
+
+        .page-header {
+          padding: 25px 15px;
+          min-height: 130px;
+        }
+
+        .header-logo {
+          max-width: 250px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .page-header {
+          padding: 20px 10px;
+          min-height: 120px;
+        }
+
+        .header-logo {
+          max-width: 200px;
+        }
+
+        .nav-container {
+          padding: 0 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Elementos decorativos sutis -->
+    <div class="african-pattern pattern-1"></div>
+    <!-- Nav Bar no Topo - Fixa com efeito de acompanhamento -->
+    <nav class="nav-bar hidden" id="navBar">
+      <div class="nav-container">
+        <div class="nav-header">
+          <button class="toggle-btn" id="toggleBtn" aria-label="Alternar menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <div class="nav-content">
+          <ul class="nav-links" id="navLinks">
+            <li>
+              <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="estud.html" class="active">
+                <i class="fas fa-user-graduate"></i>
+                <span>Estudante</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="educador.html">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Educador</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="biblio.html" id="bibliotecaNavBtn">
+                <i class="fas fa-book"></i>
+                <span>Biblioteca</span>
+              </a>
+            </li>
+            <li>
+              <a href="comun.html">
+                <i class="fas fa-users"></i>
+                <span>Comunidade</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" id="configBtn">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" id="navHelpBtn">
+                <i class="fas fa-question-circle"></i>
+                <span>Dúvidas</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Área da Conta do Usuário -->
+          <div class="user-account">
+            <button class="user-btn" id="userBtn">
+              <div class="user-avatar" id="userAvatar">?</div>
+              <span class="user-name" id="userName">Entrar</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="user-dropdown" id="userDropdown">
+              <a href="#" class="dropdown-item" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Fazer Login
+              </a>
+              <a href="#" class="dropdown-item" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Criar Conta
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Conteúdo principal -->
+      <div class="container-content">
+        <!-- Header Simples e Eficiente -->
+        <header class="page-header">
+          <img
+            src="public/assets/img/icons/logo_estudante.png"
+            alt="Logo Estudante"
+            class="header-logo"
+          />
+        </header>
+
+        <div class="content-wrapper">
+          <!-- 1. Painel de Continuidade -->
+          <section class="content-section">
+            <div class="section-header">
+              <i class="fas fa-play-circle"></i>
+              <h2>Continuar Estudando</h2>
+            </div>
+            <div
+              class="continue-studying"
+              id="continueCard"
+              data-module="historia-africa"
+            >
+              <div class="continue-info">
+                <h3>História da África: Impérios Antigos</h3>
+                <p class="progress-simple">
+                  Você parou no Módulo 2: O Império de Mali
+                </p>
+                <div class="progress-bar">
+                  <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-simple" id="progressText">
+                  60% completo • 30min restantes
+                </p>
+              </div>
+              <button class="btn-continue" id="continueBtn">
+                Retomar Aula <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </section>
+
+          <!-- 2. Conteúdos Curriculares -->
+          <section class="content-section">
+            <div class="section-header">
+              <i class="fas fa-book-reader"></i>
+              <h2>Conteúdo Curricular</h2>
+            </div>
+            <div class="modules-grid">
+              <!-- Card 1 -->
+              <div class="module-card" data-module="resistencia">
+                <div
+                  class="module-header"
+                  style="background: linear-gradient(135deg, #a55734, #8c472a)"
+                >
+                  <i class="fas fa-landmark"></i>
+                </div>
+                <div class="module-body">
+                  <span class="module-tag">História</span>
+                  <h3 class="module-title">Resistência e Quilombos</h3>
+                  <p class="module-desc">
+                    A formação dos quilombos, a liderança de Zumbi e Dandara e o
+                    impacto na sociedade colonial.
+                  </p>
+                  <a href="#" class="module-link" data-action="open-module"
+                    >Acessar Conteúdo <i class="fas fa-chevron-right"></i
+                  ></a>
+                </div>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="module-card" data-module="literatura">
+                <div
+                  class="module-header"
+                  style="background: linear-gradient(135deg, #4b5320, #3d441a)"
+                >
+                  <i class="fas fa-pen-fancy"></i>
+                </div>
+                <div class="module-body">
+                  <span class="module-tag">Literatura</span>
+                  <h3 class="module-title">Autores Negros Brasileiros</h3>
+                  <p class="module-desc">
+                    Vida e obra de Machado de Assis, Lima Barreto, Carolina
+                    Maria de Jesus e contemporâneos.
+                  </p>
+                  <a href="#" class="module-link" data-action="open-module"
+                    >Acessar Conteúdo <i class="fas fa-chevron-right"></i
+                  ></a>
+                </div>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="module-card" data-module="cultura">
+                <div
+                  class="module-header"
+                  style="background: linear-gradient(135deg, #1e3a5f, #152a4a)"
+                >
+                  <i class="fas fa-drum"></i>
+                </div>
+                <div class="module-body">
+                  <span class="module-tag">Cultura</span>
+                  <h3 class="module-title">Artes e Festas Populares</h3>
+                  <p class="module-desc">
+                    Entenda as origens do Samba, Maracatu, Capoeira e Congada.
+                  </p>
+                  <a href="#" class="module-link" data-action="open-module"
+                    >Acessar Conteúdo <i class="fas fa-chevron-right"></i
+                  ></a>
+                </div>
+              </div>
+
+              <!-- Card 4 -->
+              <div class="module-card" data-module="diáspora">
+                <div
+                  class="module-header"
+                  style="background: linear-gradient(135deg, #5d3a6f, #4a2e58)"
+                >
+                  <i class="fas fa-globe-africa"></i>
+                </div>
+                <div class="module-body">
+                  <span class="module-tag">Geografia</span>
+                  <h3 class="module-title">Diáspora Africana</h3>
+                  <p class="module-desc">
+                    As rotas do tráfico transatlântico e a distribuição da
+                    população africana nas Américas.
+                  </p>
+                  <a href="#" class="module-link" data-action="open-module"
+                    >Acessar Conteúdo <i class="fas fa-chevron-right"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. Ferramentas de Estudo Práticas -->
+          <section class="content-section">
+            <div class="section-header">
+              <i class="fas fa-toolbox"></i>
+              <h2>Ferramentas de Estudo</h2>
+            </div>
+            <div class="tools-section">
+              <div class="tool-box" data-tool="flashcards">
+                <div class="tool-icon"><i class="fas fa-layer-group"></i></div>
+                <h3 class="tool-title">Flashcards</h3>
+                <p class="tool-desc">
+                  Revise conceitos e datas importantes de forma rápida e
+                  eficiente.
+                </p>
+              </div>
+
+              <div class="tool-box" data-tool="quiz">
+                <div class="tool-icon">
+                  <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 class="tool-title">Quiz de Revisão</h3>
+                <p class="tool-desc">
+                  Teste seus conhecimentos com perguntas de vestibulares
+                  anteriores.
+                </p>
+              </div>
+
+              <div class="tool-box" data-tool="glossario">
+                <div class="tool-icon"><i class="fas fa-atlas"></i></div>
+                <h3 class="tool-title">Glossário & Referências</h3>
+                <p class="tool-desc">
+                  Consulte termos históricos e bibliografia recomendada.
+                </p>
+              </div>
+
+              <div class="tool-box" data-tool="simulados">
+                <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
+                <h3 class="tool-title">Simulados ENEM</h3>
+                <p class="tool-desc">
+                  Prepare-se com questões específicas sobre cultura
+                  afro-brasileira.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Materiais de Apoio -->
+          <section class="content-section">
+            <div class="section-header">
+              <i class="fas fa-file-download"></i>
+              <h2>Materiais de Apoio</h2>
+            </div>
+            <ul class="resources-list">
+              <li class="resource-item" data-resource="pdf1">
+                <div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
+                <div class="resource-info">
+                  <h4>Resumo: Revoltas do Período Regencial</h4>
+                  <span>PDF • 2.5 MB • 15 páginas</span>
+                </div>
+                <a href="#" class="resource-action" data-action="download"
+                  ><i class="fas fa-download"></i
+                ></a>
+              </li>
+              <li class="resource-item" data-resource="ppt1">
+                <div class="resource-icon">
+                  <i class="fas fa-file-powerpoint"></i>
+                </div>
+                <div class="resource-info">
+                  <h4>Mapa Mental: Diáspora Africana</h4>
+                  <span>PPTX • 4.1 MB • Com animações</span>
+                </div>
+                <a href="#" class="resource-action" data-action="download"
+                  ><i class="fas fa-download"></i
+                ></a>
+              </li>
+              <li class="resource-item" data-resource="video1">
+                <div class="resource-icon"><i class="fas fa-video"></i></div>
+                <div class="resource-info">
+                  <h4>Vídeo-aula: Geografia do Continente Africano</h4>
+                  <span>YouTube • 25min • Legendado</span>
+                </div>
+                <a href="#" class="resource-action" data-action="open-link"
+                  ><i class="fas fa-external-link-alt"></i
+                ></a>
+              </li>
+              <li class="resource-item" data-resource="audio1">
+                <div class="resource-icon"><i class="fas fa-podcast"></i></div>
+                <div class="resource-info">
+                  <h4>Podcast: Literatura Negra Contemporânea</h4>
+                  <span>MP3 • 38min • Entrevista com autores</span>
+                </div>
+                <a href="#" class="resource-action" data-action="download"
+                  ><i class="fas fa-download"></i
+                ></a>
+              </li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="footer-content">
+            <div class="footer-logo">Estudante</div>
+            <div class="footer-info">
+              <p>
+                Plataforma dedicada ao ensino da História e Cultura
+                Afro-Brasileira
+              </p>
+            </div>
+          </div>
+        </footer>
+
+        <!-- Direitos autorais -->
+        <div class="copyright">
+          <p>&copy; 2025 Somos Um - Todos os direitos reservados</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caixinha de Ajuda -->
+    <div class="help-overlay" id="helpOverlay"></div>
+    <div class="help-box" id="helpBox">
+      <div class="help-box-header">
+        <h2><i class="fas fa-question-circle"></i> Como usar a plataforma</h2>
+        <button
+          class="close-help-box"
+          id="closeHelpBox"
+          aria-label="Fechar ajuda"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="help-content">
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-play-circle"></i>
+            <h3>CONTINUAR ESTUDANDO</h3>
+          </div>
+          <p>
+            Retome de onde parou seu último estudo. A barra de progresso mostra
+            seu avanço no conteúdo atual.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-book-reader"></i>
+            <h3>CONTEÚDO CURRICULAR</h3>
+          </div>
+          <p>
+            Acesse módulos organizados por temas: História, Literatura, Cultura
+            e Geografia da diáspora africana.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-toolbox"></i>
+            <h3>FERRAMENTAS DE ESTUDO</h3>
+          </div>
+          <p>
+            Use flashcards, quizzes, glossário e simulados para reforçar seu
+            aprendizado de forma interativa.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-file-download"></i>
+            <h3>MATERIAIS DE APOIO</h3>
+          </div>
+          <p>
+            Baixe PDFs, apresentações, vídeos e podcasts complementares para
+            estudo offline.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modais -->
+    <!-- Modal de Configurações (atualizado para ter o mesmo design do index) -->
+    <div class="modal" id="configModal">
+      <div class="modal-content config-modal-content">
+        <h2><i class="fas fa-cog"></i> Configurações</h2>
+
+        <div class="config-section">
+          <h3>Aparência</h3>
+          <div class="config-option">
+            <span>Tema Escuro</span>
+            <label class="switch">
+              <input type="checkbox" id="darkTheme" />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="config-option">
+            <span>Tamanho da Fonte</span>
+            <select id="fontSizeSelect">
+              <option value="small">Pequeno</option>
+              <option value="medium" selected>Médio</option>
+              <option value="large">Grande</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="config-section">
+          <h3>Notificações</h3>
+          <div class="config-option">
+            <span>Notificações de novos materiais</span>
+            <label class="switch">
+              <input type="checkbox" id="notifications" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="config-section">
+          <h3>Preferências de Estudo</h3>
+          <div class="config-option">
+            <span>Nível de Dificuldade:</span>
+            <select id="difficultyLevel">
+              <option value="beginner">Iniciante</option>
+              <option value="intermediate" selected>Intermediário</option>
+              <option value="advanced">Avançado</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px">
+          <button class="close-button" id="saveSettings">
+            Salvar Configurações
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Login -->
+    <div class="modal" id="loginModal">
+      <div class="modal-content">
+        <h2><i class="fas fa-sign-in-alt"></i> Login do Estudante</h2>
+        <p>Acesse sua conta para salvar progresso e personalizar estudos.</p>
+
+        <div style="text-align: left; margin: 20px 0">
+          <div style="margin-bottom: 15px">
+            <label style="display: block; margin-bottom: 5px">Email:</label>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="seu@email.com"
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 2px solid var(--border-color);
+              "
+            />
+          </div>
+          <div style="margin-bottom: 15px">
+            <label style="display: block; margin-bottom: 5px">Senha:</label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Sua senha"
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 2px solid var(--border-color);
+              "
+            />
+          </div>
+        </div>
+
+        <button class="close-button" id="doLogin">Entrar na Conta</button>
+        <p style="margin-top: 15px; font-size: 0.9rem">
+          Não tem conta?
+          <a href="#" id="switchToRegister" style="color: var(--accent-color)"
+            >Cadastre-se aqui</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div class="modal" id="registerModal">
+      <div class="modal-content">
+        <h2><i class="fas fa-user-plus"></i> Cadastro de Estudante</h2>
+        <p>Crie sua conta gratuita para acessar todos os recursos.</p>
+
+        <div style="text-align: left; margin: 20px 0">
+          <div style="margin-bottom: 15px">
+            <label style="display: block; margin-bottom: 5px"
+              >Nome Completo:</label
+            >
+            <input
+              type="text"
+              id="registerName"
+              placeholder="Seu nome"
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 2px solid var(--border-color);
+              "
+            />
+          </div>
+          <div style="margin-bottom: 15px">
+            <label style="display: block; margin-bottom: 5px">Email:</label>
+            <input
+              type="email"
+              id="registerEmail"
+              placeholder="seu@email.com"
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 2px solid var(--border-color);
+              "
+            />
+          </div>
+          <div style="margin-bottom: 15px">
+            <label style="display: block; margin-bottom: 5px">Senha:</label>
+            <input
+              type="password"
+              id="registerPassword"
+              placeholder="Mínimo 6 caracteres"
+              style="
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 2px solid var(--border-color);
+              "
+            />
+          </div>
+          <div style="margin-bottom: 15px">
+            <label style="display: block; margin-bottom: 5px"
+              >Nível de Ensino:</label
+            >
+            <select
+              id="educationLevel"
+              style="
+                width: 100%;
+                padding: 8px;
+                border-radius: 5px;
+                border: 2px solid var(--border-color);
+              "
+            >
+              <option value="">Selecione</option>
+              <option value="fundamental">Ensino Fundamental</option>
+              <option value="medio">Ensino Médio</option>
+              <option value="superior">Ensino Superior</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="close-button" id="doRegister">Criar Conta</button>
+        <p style="margin-top: 15px; font-size: 0.9rem">
+          Já tem conta?
+          <a href="#" id="switchToLogin" style="color: var(--accent-color)"
+            >Faça login aqui</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- Modal de Conteúdo (simulação) -->
+    <div class="modal" id="contentModal">
+      <div class="modal-content">
+        <h2 id="contentModalTitle">
+          <i class="fas fa-book"></i> Carregando...
+        </h2>
+        <div id="contentModalBody">
+          <p>Preparando conteúdo para estudo...</p>
+        </div>
+        <button class="close-button" data-modal="contentModal">Fechar</button>
+      </div>
+    </div>
+
+    <script>
+      // ========== CLASSE PRINCIPAL DO APLICATIVO ==========
+      class EstudanteApp {
+        constructor() {
+          this.navbar = new NavbarManager();
+          this.modalManager = new ModalManager();
+          this.userAccount = new UserAccountManager();
+          this.studyManager = new StudyManager();
+
+          this.init();
+        }
+
+        init() {
+          this.navbar.init();
+          this.modalManager.init();
+          this.userAccount.init();
+          this.studyManager.init();
+
+          this.setupInteractiveElements();
+          this.setupEventListeners();
+
+          // Carregar preferências
+          this.loadPreferences();
+
+          // Mostrar navbar após um breve delay
+          setTimeout(() => {
+            document.getElementById("navBar").classList.remove("hidden");
+          }, 300);
+        }
+
+        setupInteractiveElements() {
+          // Cards de módulo
+          document
+            .querySelectorAll('[data-action="open-module"]')
+            .forEach((link) => {
+              link.addEventListener("click", (e) => {
+                e.preventDefault();
+                const card = e.target.closest(".module-card");
+                const module = card.getAttribute("data-module");
+                this.openModule(module);
+              });
+            });
+
+          // Ferramentas de estudo
+          document.querySelectorAll(".tool-box").forEach((tool) => {
+            tool.addEventListener("click", () => {
+              const toolName = tool.getAttribute("data-tool");
+              this.openTool(toolName);
+            });
+          });
+
+          // Materiais de apoio
+          document
+            .querySelectorAll('[data-action="download"]')
+            .forEach((link) => {
+              link.addEventListener("click", (e) => {
+                e.preventDefault();
+                const item = e.target.closest(".resource-item");
+                const resource = item.getAttribute("data-resource");
+                this.downloadResource(resource);
+              });
+            });
+
+          document
+            .querySelectorAll('[data-action="open-link"]')
+            .forEach((link) => {
+              link.addEventListener("click", (e) => {
+                e.preventDefault();
+                this.openExternalLink();
+              });
+            });
+
+          // Botão de continuar estudando
+          document
+            .getElementById("continueBtn")
+            .addEventListener("click", () => {
+              const continueCard = document.getElementById("continueCard");
+              const module = continueCard.getAttribute("data-module");
+              this.continueStudying(module);
+            });
+        }
+
+        setupEventListeners() {
+          // Botão de salvar configurações
+          document
+            .getElementById("saveSettings")
+            .addEventListener("click", () => {
+              this.saveSettings();
+            });
+
+          // Botões de login/registro
+          document.getElementById("doLogin").addEventListener("click", () => {
+            this.performLogin();
+          });
+
+          document
+            .getElementById("doRegister")
+            .addEventListener("click", () => {
+              this.performRegister();
+            });
+
+          // Alternar entre login e registro
+          document
+            .getElementById("switchToRegister")
+            .addEventListener("click", (e) => {
+              e.preventDefault();
+              this.modalManager.closeModal("loginModal");
+              this.modalManager.openModal("registerModal");
+            });
+
+          document
+            .getElementById("switchToLogin")
+            .addEventListener("click", (e) => {
+              e.preventDefault();
+              this.modalManager.closeModal("registerModal");
+              this.modalManager.openModal("loginModal");
+            });
+
+          // Tema escuro
+          document
+            .getElementById("darkTheme")
+            .addEventListener("change", (e) => {
+              document.body.classList.toggle("dark-mode", e.target.checked);
+              localStorage.setItem("darkTheme", e.target.checked);
+            });
+
+          // Tamanho da fonte
+          document
+            .getElementById("fontSizeSelect")
+            .addEventListener("change", (e) => {
+              const size = e.target.value;
+              let fontSize;
+              switch (size) {
+                case "small":
+                  fontSize = "14px";
+                  break;
+                case "large":
+                  fontSize = "18px";
+                  break;
+                default:
+                  fontSize = "16px";
+              }
+              document.body.style.fontSize = fontSize;
+              localStorage.setItem("fontSize", size);
+            });
+        }
+
+        loadPreferences() {
+          // Carregar tema
+          const darkTheme = localStorage.getItem("darkTheme") === "true";
+          document.getElementById("darkTheme").checked = darkTheme;
+          if (darkTheme) document.body.classList.add("dark-mode");
+
+          // Carregar tamanho da fonte
+          const fontSize = localStorage.getItem("fontSize") || "medium";
+          document.getElementById("fontSizeSelect").value = fontSize;
+          let fontSizeValue;
+          switch (fontSize) {
+            case "small":
+              fontSizeValue = "14px";
+              break;
+            case "large":
+              fontSizeValue = "18px";
+              break;
+            default:
+              fontSizeValue = "16px";
+          }
+          document.body.style.fontSize = fontSizeValue;
+
+          // Carregar progresso do estudante - CORRIGIDO
+          let progressData;
+          try {
+            progressData = JSON.parse(localStorage.getItem("studyProgress"));
+          } catch (e) {
+            progressData = null;
+          }
+
+          // Se não existir ou for inválido, criar um padrão
+          if (!progressData || typeof progressData !== "object") {
+            progressData = {
+              "historia-africa": 60,
+              resistencia: 0,
+              literatura: 0,
+              cultura: 0,
+              diáspora: 0,
+            };
+            localStorage.setItem("studyProgress", JSON.stringify(progressData));
+          }
+
+          // Corrigir o bug: garantir que seja um número, não um objeto
+          const progress =
+            typeof progressData === "object"
+              ? progressData["historia-africa"] || 60
+              : parseInt(progressData) || 60;
+
+          document.getElementById("progressFill").style.width = `${progress}%`;
+          const minutesRemaining = Math.round(((100 - progress) / 60) * 45);
+          document.getElementById(
+            "progressText"
+          ).textContent = `${progress}% completo • ${minutesRemaining}min restantes`;
+        }
+
+        openModule(module) {
+          const moduleTitles = {
+            "historia-africa": "História da África: Impérios Antigos",
+            resistencia: "Resistência e Quilombos",
+            literatura: "Autores Negros Brasileiros",
+            cultura: "Artes e Festas Populares",
+            diáspora: "Diáspora Africana",
+          };
+
+          const moduleContents = {
+            "historia-africa": `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Módulo 2: O Império de Mali</h3>
+                        <div style="text-align: left; margin-bottom: 20px;">
+                            <p>O Império do Mali foi um estado africano que existiu entre 1235 e 1546. Foi o segundo dos três grandes impérios da savana do Oeste Africano, sucedendo ao Império do Gana e antecedendo ao Império Songai.</p>
+                            <h4 style="color: var(--accent-color); margin-top: 15px;">Conteúdo do Módulo:</h4>
+                            <ul>
+                                <li><strong>Fundador:</strong> Sundiata Keita (o Rei Leão)</li>
+                                <li><strong>Ápice:</strong> Reinado de Mansa Musa (1312-1337)</li>
+                                <li><strong>Economia:</strong> Controle das rotas de comércio transaariano, especialmente ouro e sal</li>
+                                <li><strong>Cultura:</strong> Centro de aprendizagem islâmica em Timbuktu</li>
+                                <li><strong>Declínio:</strong> Conflitos internos e ataques de povos vizinhos</li>
+                            </ul>
+                            <div style="background: var(--bg-tertiary); padding: 15px; border-radius: 10px; margin: 20px 0;">
+                                <h4 style="color: var(--accent-color); margin-bottom: 10px;">Atividade Interativa:</h4>
+                                <p>Mapa do Império do Mali mostrando as rotas de comércio e cidades importantes como Timbuktu, Gao e Djenne.</p>
+                            </div>
+                            <p><strong>Curiosidade:</strong> Mansa Musa é considerado uma das pessoas mais ricas da história, e sua peregrinação a Meca em 1324-1325 teve impacto significativo na economia do Mediterrâneo.</p>
+                        </div>
+                    `,
+            resistencia: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Conteúdo do Módulo:</h3>
+                        <ul style="text-align: left; margin-bottom: 20px;">
+                            <li>Formação dos quilombos no Brasil Colonial</li>
+                            <li>Liderança de Zumbi dos Palmares</li>
+                            <li>Papel de Dandara na resistência</li>
+                            <li>Impacto social e cultural dos quilombos</li>
+                            <li>Legado na sociedade brasileira contemporânea</li>
+                        </ul>
+                        <div style="background: var(--bg-tertiary); padding: 15px; border-radius: 10px; margin: 20px 0;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 10px;">Atividade Interativa:</h4>
+                            <p>Mapa dos principais quilombos brasileiros com informações sobre cada comunidade.</p>
+                        </div>
+                    `,
+            literatura: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Autores em Destaque:</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                            <div style="background: var(--bg-tertiary); padding: 15px; border-radius: 10px;">
+                                <strong>Machado de Assis</strong>
+                                <p style="font-size: 0.9rem; margin-top: 5px;">Considerado o maior escritor brasileiro, de ascendência africana.</p>
+                            </div>
+                            <div style="background: var(--bg-tertiary); padding: 15px; border-radius: 10px;">
+                                <strong>Carolina Maria de Jesus</strong>
+                                <p style="font-size: 0.9rem; margin-top: 5px;">Autora de "Quarto de Despejo", diário de uma favelada.</p>
+                            </div>
+                        </div>
+                        <p>Estudo das obras e influência na literatura nacional.</p>
+                    `,
+            cultura: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Expressões Culturais:</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                            <span style="background: var(--accent-color); color: white; padding: 5px 10px; border-radius: 5px;">Samba</span>
+                            <span style="background: var(--accent-color); color: white; padding: 5px 10px; border-radius: 5px;">Capoeira</span>
+                            <span style="background: var(--accent-color); color: white; padding: 5px 10px; border-radius: 5px;">Maracatu</span>
+                            <span style="background: var(--accent-color); color: white; padding: 5px 10px; border-radius: 5px;">Congada</span>
+                        </div>
+                        <p>Origens africanas, evolução no Brasil e importância na formação da identidade cultural brasileira.</p>
+                    `,
+            diáspora: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Mapa da Diáspora:</h3>
+                        <p>Estudo das rotas do tráfico transatlântico e distribuição da população africana nas Américas.</p>
+                        <div style="background: var(--bg-tertiary); padding: 15px; border-radius: 10px; margin: 20px 0;">
+                            <h4 style="color: var(--accent-color); margin-bottom: 10px;">Dados Estatísticos:</h4>
+                            <p>Entre 1501 e 1866, cerca de 12,5 milhões de africanos foram embarcados para as Américas.</p>
+                        </div>
+                    `,
+          };
+
+          document.getElementById(
+            "contentModalTitle"
+          ).innerHTML = `<i class="fas fa-book"></i> ${moduleTitles[module]}`;
+          document.getElementById("contentModalBody").innerHTML =
+            moduleContents[module];
+          this.modalManager.openModal("contentModal");
+
+          // Simular registro de acesso
+          setTimeout(() => {
+            this.showNotification(
+              `Módulo "${moduleTitles[module]}" aberto para estudo`
+            );
+          }, 500);
+        }
+
+        openTool(tool) {
+          const toolNames = {
+            flashcards: "Flashcards",
+            quiz: "Quiz de Revisão",
+            glossario: "Glossário",
+            simulados: "Simulados ENEM",
+          };
+
+          const toolContents = {
+            flashcards: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Flashcards Interativos</h3>
+                        <p>Revise conceitos importantes com cartões virtuais:</p>
+                        <div style="background: var(--bg-tertiary); padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                            <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 10px;">Zumbi dos Palmares</div>
+                            <div style="font-size: 0.9rem;">Clique para revelar informações</div>
+                        </div>
+                        <button class="close-button" onclick="this.parentElement.innerHTML='<h4>Resposta:</h4><p>Último líder do Quilombo dos Palmares, símbolo da resistência negra no Brasil.</p>'">Revelar Resposta</button>
+                    `,
+            quiz: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Quiz de Conhecimentos</h3>
+                        <p>Teste seus conhecimentos sobre cultura afro-brasileira:</p>
+                        <div style="text-align: left; margin: 20px 0;">
+                            <p><strong>1. Quando foi promulgada a Lei 10.639/2003?</strong></p>
+                            <div style="margin-left: 20px;">
+                                <label style="display: block; margin: 5px 0;"><input type="radio" name="quiz1"> 1998</label>
+                                <label style="display: block; margin: 5px 0;"><input type="radio" name="quiz1"> 2003</label>
+                                <label style="display: block; margin: 5px 0;"><input type="radio" name="quiz1"> 2010</label>
+                            </div>
+                        </div>
+                        <button class="close-button" onclick="alert('Resposta correta: 2003!')">Verificar Resposta</button>
+                    `,
+            glossario: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Glossário de Termos</h3>
+                        <div style="text-align: left; max-height: 300px; overflow-y: auto;">
+                            <p><strong>Diáspora:</strong> Dispersão de um povo pelo mundo, especialmente a africana através do tráfico transatlântico.</p>
+                            <p><strong>Quilombo:</strong> Comunidade formada por africanos escravizados que escapavam do cativeiro.</p>
+                            <p><strong>Capoeira:</strong> Expressão cultural que mistura arte marcial, dança e música, de origem africana.</p>
+                            <p><strong>Samba:</strong> Gênero musical e dança de raízes africanas, importante na cultura brasileira.</p>
+                        </div>
+                    `,
+            simulados: `
+                        <h3 style="color: var(--accent-color); margin-bottom: 15px;">Simulado ENEM</h3>
+                        <p>Prepare-se para questões sobre cultura afro-brasileira no ENEM:</p>
+                        <div style="background: var(--bg-tertiary); padding: 15px; border-radius: 10px; margin: 20px 0;">
+                            <p><strong>Simulado disponível:</strong> 20 questões sobre História da África</p>
+                            <p><strong>Tempo estimado:</strong> 45 minutos</p>
+                        </div>
+                        <button class="close-button" onclick="alert('Simulado iniciado! Boa sorte!')">Iniciar Simulado</button>
+                    `,
+          };
+
+          document.getElementById(
+            "contentModalTitle"
+          ).innerHTML = `<i class="fas fa-tools"></i> ${toolNames[tool]}`;
+          document.getElementById("contentModalBody").innerHTML =
+            toolContents[tool];
+          this.modalManager.openModal("contentModal");
+        }
+
+        downloadResource(resource) {
+          this.showNotification("Download iniciado... (simulação)");
+
+          // Simular download
+          setTimeout(() => {
+            this.showNotification("Download concluído com sucesso!");
+          }, 1500);
+        }
+
+        openExternalLink() {
+          this.showNotification("Abrindo link externo... (simulação)");
+          // Em uma implementação real, seria: window.open('URL_DO_VIDEO', '_blank');
+        }
+
+        continueStudying(module) {
+          const progressFill = document.getElementById("progressFill");
+          let progress = parseInt(progressFill.style.width) || 60;
+
+          // Aumentar progresso
+          progress = Math.min(progress + 5, 100);
+          progressFill.style.width = `${progress}%`;
+
+          // Salvar progresso CORRETAMENTE
+          let progressData;
+          try {
+            progressData =
+              JSON.parse(localStorage.getItem("studyProgress")) || {};
+          } catch (e) {
+            progressData = {};
+          }
+
+          // Garantir que é um objeto
+          if (typeof progressData !== "object") {
+            progressData = {};
+          }
+
+          progressData[module] = progress;
+          localStorage.setItem("studyProgress", JSON.stringify(progressData));
+
+          // Atualizar texto - CORRIGIDO para evitar NaN
+          const minutesRemaining = Math.round(((100 - progress) / 60) * 45);
+          document.getElementById(
+            "progressText"
+          ).textContent = `${progress}% completo • ${minutesRemaining}min restantes`;
+
+          // Mostrar mensagem
+          this.showNotification("Progresso salvo! Continue estudando!");
+
+          // Simular carregamento de aula
+          document.getElementById("continueBtn").innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Carregando aula...';
+          setTimeout(() => {
+            document.getElementById("continueBtn").innerHTML =
+              'Retomar Aula <i class="fas fa-arrow-right"></i>';
+            this.openModule(module); // Abrir módulo correto
+          }, 1000);
+        }
+
+        saveSettings() {
+          const darkTheme = document.getElementById("darkTheme").checked;
+          const notifications =
+            document.getElementById("notifications").checked;
+          const difficulty = document.getElementById("difficultyLevel").value;
+          const fontSize = document.getElementById("fontSizeSelect").value;
+
+          localStorage.setItem("darkTheme", darkTheme);
+          localStorage.setItem("notifications", notifications);
+          localStorage.setItem("difficultyLevel", difficulty);
+          localStorage.setItem("fontSize", fontSize);
+
+          this.showNotification("Configurações salvas com sucesso!");
+          this.modalManager.closeModal("configModal");
+
+          // Aplicar tema imediatamente
+          document.body.classList.toggle("dark-mode", darkTheme);
+
+          // Aplicar tamanho da fonte
+          let fontSizeValue;
+          switch (fontSize) {
+            case "small":
+              fontSizeValue = "14px";
+              break;
+            case "large":
+              fontSizeValue = "18px";
+              break;
+            default:
+              fontSizeValue = "16px";
+          }
+          document.body.style.fontSize = fontSizeValue;
+        }
+
+        performLogin() {
+          const email = document.getElementById("loginEmail").value;
+          const password = document.getElementById("loginPassword").value;
+
+          if (!email || !password) {
+            this.showNotification("Por favor, preencha todos os campos.");
+            return;
+          }
+
+          // Simular login
+          document.getElementById("doLogin").innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+
+          setTimeout(() => {
+            // Simular sucesso
+            localStorage.setItem("userLoggedIn", "true");
+            localStorage.setItem(
+              "userData",
+              JSON.stringify({
+                name: email.split("@")[0],
+                avatarInitial: email[0].toUpperCase(),
+                email: email,
+              })
+            );
+
+            this.userAccount.checkLoginStatus();
+            this.modalManager.closeModal("loginModal");
+            this.showNotification("Login realizado com sucesso!");
+            document.getElementById("doLogin").innerHTML = "Entrar na Conta";
+          }, 1500);
+        }
+
+        performRegister() {
+          const name = document.getElementById("registerName").value;
+          const email = document.getElementById("registerEmail").value;
+          const password = document.getElementById("registerPassword").value;
+          const educationLevel =
+            document.getElementById("educationLevel").value;
+
+          if (!name || !email || !password || !educationLevel) {
+            this.showNotification("Por favor, preencha todos os campos.");
+            return;
+          }
+
+          // Simular registro
+          document.getElementById("doRegister").innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Criando conta...';
+
+          setTimeout(() => {
+            // Simular sucesso
+            localStorage.setItem("userLoggedIn", "true");
+            localStorage.setItem(
+              "userData",
+              JSON.stringify({
+                name: name,
+                avatarInitial: name[0].toUpperCase(),
+                email: email,
+                educationLevel: educationLevel,
+              })
+            );
+
+            this.userAccount.checkLoginStatus();
+            this.modalManager.closeModal("registerModal");
+            this.showNotification("Conta criada com sucesso! Bem-vindo(a)!");
+            document.getElementById("doRegister").innerHTML = "Criar Conta";
+          }, 1500);
+        }
+
+        showNotification(message) {
+          // Criar elemento de notificação
+          const notification = document.createElement("div");
+          notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: var(--accent-color);
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 10px;
+                    box-shadow: var(--shadow);
+                    z-index: 2000;
+                    animation: slideIn 0.3s ease;
+                    max-width: 300px;
+                `;
+
+          // Adicionar estilos de animação
+          const style = document.createElement("style");
+          style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+          document.head.appendChild(style);
+
+          notification.textContent = message;
+          document.body.appendChild(notification);
+
+          // Remover após 3 segundos
+          setTimeout(() => {
+            notification.style.animation = "slideIn 0.3s ease reverse";
+            setTimeout(() => {
+              document.body.removeChild(notification);
+            }, 300);
+          }, 3000);
+        }
+      }
+
+      // ========== GERENCIADOR DA NAVBAR ==========
+      class NavbarManager {
+        constructor() {
+          this.navBar = document.getElementById("navBar");
+          this.toggleBtn = document.getElementById("toggleBtn");
+          this.navContent = document.querySelector(".nav-content");
+          this.navLinks = document.getElementById("navLinks");
+
+          this.lastScrollY = window.scrollY;
+          this.ticking = false;
+          this.inactivityTimer = null;
+          this.hideDelay = 3000;
+          this.isMenuOpen = false;
+          this.isAtTop = true;
+        }
+
+        init() {
+          this.setupToggle();
+          this.setupScrollBehavior();
+          this.setupInactivityDetection();
+
+          setTimeout(() => {
+            this.showNavbar();
+          }, 100);
+
+          this.checkIfAtTop();
+        }
+
+        checkIfAtTop() {
+          this.isAtTop = window.scrollY <= 10;
+          if (this.isAtTop) {
+            this.showNavbar();
+          }
+        }
+
+        setupToggle() {
+          if (this.toggleBtn) {
+            this.toggleBtn.addEventListener("click", () => {
+              this.toggleMenu();
+              this.resetInactivityTimer();
+            });
+          }
+        }
+
+        toggleMenu() {
+          if (this.isMenuOpen) {
+            this.closeMenu();
+          } else {
+            this.openMenu();
+          }
+        }
+
+        openMenu() {
+          if (this.navContent) {
+            this.navContent.classList.add("show");
+            this.isMenuOpen = true;
+
+            const icon = this.toggleBtn.querySelector("i");
+            if (icon) {
+              icon.classList.remove("fa-bars");
+              icon.classList.add("fa-times");
+            }
+          }
+        }
+
+        closeMenu() {
+          if (this.navContent) {
+            this.navContent.classList.remove("show");
+            this.isMenuOpen = false;
+
+            const icon = this.toggleBtn.querySelector("i");
+            if (icon) {
+              icon.classList.remove("fa-times");
+              icon.classList.add("fa-bars");
+            }
+          }
+        }
+
+        setupScrollBehavior() {
+          window.addEventListener("scroll", () => {
+            if (!this.ticking) {
+              requestAnimationFrame(() => this.updateNavbar());
+              this.ticking = true;
+            }
+            this.resetInactivityTimer();
+          });
+        }
+
+        setupInactivityDetection() {
+          [
+            "mousemove",
+            "mousedown",
+            "keypress",
+            "scroll",
+            "touchstart",
+          ].forEach((event) => {
+            document.addEventListener(event, () => this.resetInactivityTimer());
+          });
+
+          this.resetInactivityTimer();
+        }
+
+        resetInactivityTimer() {
+          this.isAtTop = window.scrollY <= 10;
+
+          if (this.isAtTop) {
+            this.showNavbar();
+            if (this.inactivityTimer) {
+              clearTimeout(this.inactivityTimer);
+            }
+            return;
+          }
+
+          this.showNavbar();
+
+          if (this.inactivityTimer) {
+            clearTimeout(this.inactivityTimer);
+          }
+
+          this.inactivityTimer = setTimeout(() => {
+            if (!this.isAtTop) {
+              this.hideNavbar();
+            }
+          }, this.hideDelay);
+        }
+
+        updateNavbar() {
+          const currentScrollY = window.scrollY;
+          this.isAtTop = currentScrollY <= 10;
+
+          if (this.isAtTop) {
+            this.showNavbar();
+            this.navBar.classList.remove("scrolled");
+            this.lastScrollY = currentScrollY;
+            this.ticking = false;
+            return;
+          }
+
+          if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
+            this.hideNavbar();
+          } else {
+            this.showNavbar();
+          }
+
+          if (currentScrollY > 50) {
+            this.navBar.classList.add("scrolled");
+          } else {
+            this.navBar.classList.remove("scrolled");
+          }
+
+          this.lastScrollY = currentScrollY;
+          this.ticking = false;
+        }
+
+        hideNavbar() {
+          if (!this.isAtTop && this.navBar) {
+            this.navBar.classList.add("hidden");
+          }
+        }
+
+        showNavbar() {
+          if (this.navBar) {
+            this.navBar.classList.remove("hidden");
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DE MODAIS ==========
+      class ModalManager {
+        constructor() {
+          this.buttonModalMap = {
+            configBtn: "configModal",
+            loginBtn: "loginModal",
+            registerBtn: "registerModal",
+            navHelpBtn: "helpBox",
+          };
+        }
+
+        init() {
+          this.setupModalButtons();
+          this.setupCloseButtons();
+          this.setupOutsideClick();
+          this.setupEscapeKey();
+        }
+
+        setupModalButtons() {
+          Object.keys(this.buttonModalMap).forEach((buttonId) => {
+            const button = document.getElementById(buttonId);
+            const modalId = this.buttonModalMap[buttonId];
+
+            if (button) {
+              button.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                if (modalId === "helpBox") {
+                  this.openHelpBox();
+                } else {
+                  this.openModal(modalId);
+                }
+              });
+            }
+          });
+
+          // Links normais
+          const bibliotecaBtn = document.getElementById("bibliotecaNavBtn");
+          if (bibliotecaBtn) {
+            bibliotecaBtn.addEventListener("click", (e) => {
+              // Link normal para biblio.html
+            });
+          }
+        }
+
+        setupCloseButtons() {
+          document.querySelectorAll(".close-button").forEach((button) => {
+            if (!button.id) {
+              button.addEventListener("click", () => {
+                const modalId =
+                  button.getAttribute("data-modal") ||
+                  button.closest(".modal").id;
+                this.closeModal(modalId);
+              });
+            }
+          });
+
+          document
+            .getElementById("closeHelpBox")
+            .addEventListener("click", () => {
+              this.closeHelpBox();
+            });
+        }
+
+        setupOutsideClick() {
+          document.querySelectorAll(".modal").forEach((modal) => {
+            modal.addEventListener("click", (e) => {
+              if (e.target === modal) {
+                modal.style.display = "none";
+              }
+            });
+          });
+
+          document
+            .getElementById("helpOverlay")
+            .addEventListener("click", () => {
+              this.closeHelpBox();
+            });
+        }
+
+        setupEscapeKey() {
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              document.querySelectorAll(".modal").forEach((modal) => {
+                modal.style.display = "none";
+              });
+              this.closeHelpBox();
+            }
+          });
+        }
+
+        openModal(modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.style.display = "flex";
+          }
+        }
+
+        closeModal(modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.style.display = "none";
+          }
+        }
+
+        openHelpBox() {
+          const helpBox = document.getElementById("helpBox");
+          const helpOverlay = document.getElementById("helpOverlay");
+          if (helpBox && helpOverlay) {
+            helpBox.style.display = "block";
+            helpOverlay.style.display = "block";
+          }
+        }
+
+        closeHelpBox() {
+          const helpBox = document.getElementById("helpBox");
+          const helpOverlay = document.getElementById("helpOverlay");
+          if (helpBox && helpOverlay) {
+            helpBox.style.display = "none";
+            helpOverlay.style.display = "none";
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DA CONTA DO USUÁRIO ==========
+      class UserAccountManager {
+        constructor() {
+          this.userBtn = document.getElementById("userBtn");
+          this.userDropdown = document.getElementById("userDropdown");
+          this.userAvatar = document.getElementById("userAvatar");
+          this.userName = document.getElementById("userName");
+          this.loginBtn = document.getElementById("loginBtn");
+          this.registerBtn = document.getElementById("registerBtn");
+
+          this.isDropdownOpen = false;
+          this.isLoggedIn = false;
+        }
+
+        init() {
+          this.setupUserDropdown();
+          this.checkLoginStatus();
+        }
+
+        setupUserDropdown() {
+          if (this.userBtn) {
+            this.userBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              this.toggleDropdown();
+            });
+          }
+
+          if (this.loginBtn) {
+            this.loginBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              this.openLoginModal();
+            });
+          }
+
+          if (this.registerBtn) {
+            this.registerBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              this.openRegisterModal();
+            });
+          }
+
+          document.addEventListener("click", (e) => {
+            if (this.isDropdownOpen) {
+              const isClickInsideDropdown =
+                this.userDropdown && this.userDropdown.contains(e.target);
+              const isClickOnButton =
+                this.userBtn && this.userBtn.contains(e.target);
+
+              if (!isClickInsideDropdown && !isClickOnButton) {
+                this.closeDropdown();
+              }
+            }
+          });
+
+          window.addEventListener("scroll", () => {
+            if (this.isDropdownOpen) {
+              this.closeDropdown();
+            }
+          });
+
+          window.addEventListener("resize", () => {
+            if (this.isDropdownOpen) {
+              this.closeDropdown();
+            }
+          });
+
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && this.isDropdownOpen) {
+              this.closeDropdown();
+            }
+          });
+        }
+
+        toggleDropdown() {
+          if (this.isDropdownOpen) {
+            this.closeDropdown();
+          } else {
+            this.openDropdown();
+          }
+        }
+
+        openDropdown() {
+          if (this.userDropdown) {
+            this.closeAllOtherDropdowns();
+
+            this.calculateDropdownPosition();
+
+            this.userDropdown.classList.add("show");
+            this.userDropdown.style.display = "block";
+            this.isDropdownOpen = true;
+          }
+        }
+
+        closeDropdown() {
+          if (this.userDropdown && this.isDropdownOpen) {
+            this.userDropdown.classList.remove("show");
+            this.userDropdown.style.display = "none";
+            this.isDropdownOpen = false;
+          }
+        }
+
+        closeAllOtherDropdowns() {
+          document
+            .querySelectorAll(".user-dropdown.show")
+            .forEach((dropdown) => {
+              if (dropdown !== this.userDropdown) {
+                dropdown.classList.remove("show");
+                dropdown.style.display = "none";
+              }
+            });
+        }
+
+        calculateDropdownPosition() {
+          if (!this.userDropdown || !this.userBtn) return;
+
+          const btnRect = this.userBtn.getBoundingClientRect();
+          const navbarRect = document
+            .getElementById("navBar")
+            .getBoundingClientRect();
+
+          if (window.innerWidth > 768) {
+            this.userDropdown.style.position = "fixed";
+            this.userDropdown.style.top = `${navbarRect.bottom + 5}px`;
+            this.userDropdown.style.right = `${
+              window.innerWidth - btnRect.right
+            }px`;
+          } else {
+            this.userDropdown.style.position = "fixed";
+            this.userDropdown.style.top = `${navbarRect.bottom + 5}px`;
+            this.userDropdown.style.left = "10px";
+            this.userDropdown.style.right = "10px";
+            this.userDropdown.style.width = "auto";
+          }
+        }
+
+        checkLoginStatus() {
+          const userLoggedIn = localStorage.getItem("userLoggedIn");
+          if (userLoggedIn === "true") {
+            this.isLoggedIn = true;
+            const userData = JSON.parse(
+              localStorage.getItem("userData") || "{}"
+            );
+            if (this.userAvatar) {
+              this.userAvatar.textContent = userData.avatarInitial || "?";
+            }
+            if (this.userName) {
+              this.userName.textContent = userData.name || "Usuário";
+            }
+          } else {
+            this.isLoggedIn = false;
+            if (this.userAvatar) {
+              this.userAvatar.textContent = "?";
+            }
+            if (this.userName) {
+              this.userName.textContent = "Entrar";
+            }
+          }
+        }
+
+        openLoginModal() {
+          const loginModal = document.getElementById("loginModal");
+          if (loginModal) {
+            this.closeDropdown();
+            loginModal.style.display = "flex";
+          }
+        }
+
+        openRegisterModal() {
+          const registerModal = document.getElementById("registerModal");
+          if (registerModal) {
+            this.closeDropdown();
+            registerModal.style.display = "flex";
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DE ESTUDO ==========
+      class StudyManager {
+        constructor() {
+          this.modules = {};
+          this.progress = {};
+        }
+
+        init() {
+          this.loadStudyProgress();
+          this.setupStudyEvents();
+        }
+
+        loadStudyProgress() {
+          try {
+            const savedProgress = localStorage.getItem("studyProgress");
+            this.progress = savedProgress
+              ? JSON.parse(savedProgress)
+              : {
+                  "historia-africa": 60,
+                  resistencia: 0,
+                  literatura: 0,
+                  cultura: 0,
+                  diáspora: 0,
+                };
+          } catch (e) {
+            this.progress = {
+              "historia-africa": 60,
+              resistencia: 0,
+              literatura: 0,
+              cultura: 0,
+              diáspora: 0,
+            };
+          }
+        }
+
+        saveStudyProgress() {
+          localStorage.setItem("studyProgress", JSON.stringify(this.progress));
+        }
+
+        setupStudyEvents() {
+          // Adicionar eventos para rastrear tempo de estudo
+          window.addEventListener("beforeunload", () => {
+            this.saveStudyProgress();
+          });
+        }
+
+        updateModuleProgress(moduleId, progress) {
+          this.progress[moduleId] = Math.max(
+            this.progress[moduleId] || 0,
+            progress
+          );
+          this.saveStudyProgress();
+        }
+      }
+
+      // ========== INICIALIZAÇÃO DO APLICATIVO ==========
+      document.addEventListener("DOMContentLoaded", () => {
+        const app = new EstudanteApp();
+      });
+    </script>
+
+    <!-- Script do João IA -->
+    <script
+      src="public/modules/joao-ia/joao-ia.js"
+      data-bot-name="João IA"
+      data-theme="auto"
+      data-position="bottom-right"
+      data-avatar-url="public/modules/joao-ia/assets/images/joao-avatar.png"
+      data-auto-init="true"
+    ></script>
+  </body>
+</html>

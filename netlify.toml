@@ -1,0 +1,13 @@
+# netlify.toml
+
+[build]
+  # O Netlify pegará os arquivos estáticos (index.html, etc.) que estão na raiz.
+  publish = "."
+  # Comando de build (se não houver um framework, pode ser vazio)
+  command = "echo 'Netlify build concluído'" 
+
+[functions]
+  # CRÍTICO: Indica ao Netlify onde procurar pelas suas funções (gemini-proxy.js)
+  directory = "netlify/functions"
+  # Opcional: Define o tempo máximo de execução da função (default é 10 segundos)
+  # timeout = 15 # Em segundos, 15s é um bom limite para o Gemini

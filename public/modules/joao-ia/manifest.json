@@ -1,0 +1,167 @@
+{
+  "name": "joao-ia",
+  "version": "1.2.0",
+  "description": "Módulo de chatbot IA reutilizável com Gemini AI para plataformas educacionais e sites institucionais",
+  "author": "Somos Um",
+  "license": "MIT",
+  "homepage": "https://somosum.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/somosum/joao-ia.git"
+  },
+  "keywords": [
+    "chatbot",
+    "ai",
+    "education",
+    "assistant",
+    "brazil",
+    "avatar",
+    "gemini-ai",
+    "google-ai",
+    "virtual-assistant",
+    "education-technology",
+    "afro-brazilian-culture"
+  ],
+  "main": "joao-ia.js",
+  "style": "joao-ia.css",
+  "files": [
+    "joao-ia.js",
+    "joao-ia.css",
+    "manifest.json",
+    "README.md",
+    "LICENSE",
+    "assets/",
+    "examples/",
+    "docs/"
+  ],
+  "changelog": {
+    "1.2.0": [
+      "Integração completa com Google Gemini AI",
+      "Sistema de fallback inteligente (Gemini → Respostas locais)",
+      "Contexto especializado em educação e cultura afro-brasileira",
+      "Correção do avatar (remoção da letra 'J')",
+      "Correção do indicador de digitação (não fica preso)",
+      "Sistema de verificação de API Key",
+      "Melhor tratamento de erros e debug",
+      "Otimização de performance",
+      "API pública expandida"
+    ],
+    "1.1.0": [
+      "Sistema completo de avatar com fallbacks hierárquicos",
+      "Suporte a múltiplos formatos de imagem (JPG, PNG, WebP)",
+      "Callbacks para carregamento de avatar",
+      "Comandos especiais para foto/avatar",
+      "Melhorias de acessibilidade e temas",
+      "Método updateAvatar() dinâmico"
+    ],
+    "1.0.0": [
+      "Versão inicial do módulo João IA",
+      "Chatbot com respostas locais personalizáveis",
+      "Persistência em localStorage",
+      "Sistema de temas (claro/escuro/auto)",
+      "Interface responsiva para mobile/desktop",
+      "Hooks para integração futura"
+    ]
+  },
+  "browser-compatibility": {
+    "chrome": "60+",
+    "firefox": "55+",
+    "safari": "12+",
+    "edge": "79+",
+    "opera": "50+",
+    "samsung-internet": "10+"
+  },
+  "dependencies": {
+    "font-awesome": "6.4.0"
+  },
+  "optional-dependencies": {
+    "google-gemini": "api-rest"
+  },
+  "assets": {
+    "avatar": {
+      "recommended_size": "80x80px",
+      "minimum_size": "40x40px",
+      "formats": ["jpg", "png", "webp", "svg"],
+      "fallback_strategy": "hierarchical",
+      "max_size": "200kb"
+    }
+  },
+  "features": {
+    "core": [
+      "Chat interface responsiva",
+      "Histórico de conversas local",
+      "Sistema de temas",
+      "Avatar personalizável",
+      "Typing indicators"
+    ],
+    "ai": [
+      "Integração Google Gemini AI",
+      "Contexto especializado em educação",
+      "Fallback para respostas locais",
+      "Verificação de API Key",
+      "Tratamento de erros robusto"
+    ],
+    "integration": [
+      "Inicialização automática",
+      "Configuração via data-attributes",
+      "API pública extensível",
+      "Callbacks para eventos",
+      "Múltiplos métodos de instalação"
+    ]
+  },
+  "api": {
+    "methods": [
+      "init()",
+      "open()",
+      "close()",
+      "sendMessage()",
+      "clearHistory()",
+      "initGemini()",
+      "getGeminiStatus()",
+      "getAvatarStatus()",
+      "updateConfig()",
+      "destroy()"
+    ],
+    "configuration": [
+      "botName",
+      "theme",
+      "position",
+      "avatarUrl",
+      "geminiApiKey",
+      "enableLocalPersistence",
+      "callbacks"
+    ]
+  },
+  "installation": {
+    "methods": [
+      "Data attributes",
+      "JavaScript initialization",
+      "CDN (soon)"
+    ],
+    "requirements": [
+      "Font Awesome 6.4.0+",
+      "Modern browser (ES6+)",
+      "HTTPS (para Gemini API)"
+    ]
+  },
+  "gemini-ai": {
+    "model": "gemini-2.5-flash",
+    "endpoint": "v1beta",
+    "max_tokens": 1000,
+    "temperature": 0.7,
+    "specialization": "education-afro-brazilian-culture"
+  },
+  "support": {
+    "docs": "https://github.com/somosum/joao-ia/docs",
+    "issues": "https://github.com/somosum/joao-ia/issues",
+    "email": "tecnologia@somosum.org"
+  },
+  "contributors": [
+    "Equipe Somos Um <tecnologia@somosum.org>"
+  ],
+  "updateUrl": "https://cdn.somosum.org/joao-ia",
+  "minified_size": {
+    "js": "~12KB",
+    "css": "~6KB"
+  }
+}

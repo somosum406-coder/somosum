@@ -1,0 +1,906 @@
+/* ========== MÓDULO JOÃO IA - DESIGN MODO CLARO PERMANENTE (v4.3) ========== */
+
+/* ==================== VARIÁVEIS FIXAS EM MODO CLARO ==================== */
+/* NOTA: Todas as cores são FIXAS e NÃO serão afetadas por tema escuro do site */
+:root {
+  /* Cores Principais (SEMPRE as mesmas) */
+  --joao-primary: #a55734;
+  --joao-primary-dark: #8c472a;
+  --joao-secondary: #3498db;
+  --joao-accent: #ff6b35;
+  --joao-gold: #ffd700;
+
+  /* Cores de Interface (FIXAS em Modo Claro) */
+  --joao-bg: #ffffff; /* Fundo BRANCO sempre */
+  --joao-surface: #ffffff; /* Superfície BRANCA sempre */
+  --joao-text: #000000; /* Texto PRETO sempre */
+  --joao-text-secondary: #555555; /* Texto secundário cinza escuro */
+  --joao-border: rgba(0, 0, 0, 0.1); /* Borda leve sempre */
+
+  /* Cores de Mensagens (FIXAS) */
+  --joao-user-bg: linear-gradient(135deg, #8c472a, #a55734);
+  --joao-bot-bg: #f5f5f5;
+
+  /* Efeitos (FIXOS) */
+  --joao-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --joao-shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --joao-glow: 0 0 40px rgba(165, 87, 52, 0.2);
+  --joao-border-radius: 20px;
+  --joao-border-radius-sm: 12px;
+  --joao-border-radius-lg: 28px;
+
+  /* Transições */
+  --joao-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== CONTAINER PRINCIPAL ==================== */
+.joao-ia-container {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  position: fixed;
+  z-index: 9999;
+  bottom: 30px;
+  right: 30px;
+
+  /* Garantir que o tema do site não afete o chat */
+  color: var(--joao-text) !important;
+  background: transparent !important;
+}
+
+/* ==================== BOTÃO DE TOGGLE ==================== */
+.joao-ia-toggle {
+  width: 70px;
+  height: 70px;
+  background: var(--joao-user-bg) !important;
+  border: none !important;
+  border-radius: 50%;
+  box-shadow: var(--joao-shadow), var(--joao-glow) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--joao-transition);
+  position: relative;
+  overflow: hidden;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.joao-ia-toggle:hover {
+  transform: scale(1.1) translateY(-5px) !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25), 0 0 60px rgba(165, 87, 52, 0.3) !important;
+}
+
+.joao-ia-toggle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.joao-ia-toggle-icon {
+  width: 32px;
+  height: 32px;
+  background: white !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z'/%3E%3C/svg%3E");
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z'/%3E%3C/svg%3E");
+}
+
+/* ==================== JANELA DO CHAT ==================== */
+.joao-ia-window {
+  position: absolute;
+  bottom: 90px;
+  right: 0;
+  width: 420px;
+  height: 600px;
+  max-height: 80vh;
+  display: none;
+  flex-direction: column;
+  background: var(--joao-surface) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--joao-border) !important;
+  border-radius: var(--joao-border-radius-lg);
+  box-shadow: var(--joao-shadow), inset 1px 1px 0px rgba(255, 255, 255, 0.5) !important;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Garantir que tema do site não afete */
+  color: var(--joao-text) !important;
+}
+
+.joao-ia-open .joao-ia-window {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==================== HEADER ==================== */
+.joao-ia-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(
+    135deg,
+    var(--joao-primary),
+    var(--joao-primary-dark)
+  ) !important;
+  color: white !important;
+  flex-shrink: 0;
+}
+
+.joao-ia-header-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.joao-ia-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.joao-ia-header h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: white !important;
+}
+
+.joao-ia-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  color: white !important;
+}
+
+.joao-ia-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #4ade80 !important;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.joao-ia-header-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.joao-ia-header-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: var(--joao-transition);
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.joao-ia-header-btn:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-2px);
+}
+
+/* ==================== AVATAR ==================== */
+.joao-ia-avatar {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--joao-gold) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.joao-ia-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.joao-ia-avatar-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--joao-primary-dark) !important;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+}
+
+/* ==================== MENSAGENS ==================== */
+.joao-ia-messages {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--joao-bg) !important;
+  min-height: 0;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--joao-primary) transparent;
+
+  /* Garantir que tema do site não afete */
+  color: var(--joao-text) !important;
+}
+
+.joao-ia-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.joao-ia-messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    var(--joao-primary),
+    var(--joao-accent)
+  ) !important;
+  border-radius: 10px;
+}
+
+.joao-ia-messages::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+/* Mensagem Base */
+.joao-ia-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  animation: messageAppear 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Conteúdo da Mensagem */
+.joao-ia-message-content {
+  padding: 16px 20px;
+  border-radius: var(--joao-border-radius);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  word-wrap: break-word;
+  box-shadow: var(--joao-shadow-sm) !important;
+  position: relative;
+}
+
+/* Mensagem do Usuário */
+.joao-ia-message.joao-ia-user {
+  align-self: flex-end;
+}
+
+.joao-ia-message.joao-ia-user .joao-ia-message-content {
+  background: var(--joao-user-bg) !important;
+  color: white !important;
+  border-bottom-right-radius: 4px;
+}
+
+.joao-ia-message.joao-ia-user .joao-ia-message-content::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-left-color: var(--joao-primary) !important;
+  border-right: 0;
+}
+
+/* Mensagem do Bot */
+.joao-ia-message.joao-ia-bot {
+  align-self: flex-start;
+}
+
+.joao-ia-message.joao-ia-bot .joao-ia-message-content {
+  background: var(--joao-bot-bg) !important;
+  color: var(--joao-text) !important;
+  border: 1px solid var(--joao-border) !important;
+  border-bottom-left-radius: 4px;
+}
+
+.joao-ia-message.joao-ia-bot .joao-ia-message-content::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: var(--joao-bot-bg) !important;
+  border-left: 0;
+}
+
+/* Timestamp */
+.joao-ia-timestamp {
+  font-size: 0.75rem;
+  color: var(--joao-text-secondary) !important;
+  margin-top: 6px;
+  text-align: right;
+}
+
+.joao-ia-message.joao-ia-bot .joao-ia-timestamp {
+  text-align: left;
+}
+
+/* Estilização de Markdown */
+.joao-ia-message-content h2,
+.joao-ia-message-content h3,
+.joao-ia-message-content h4 {
+  margin: 0.5em 0;
+  font-weight: 700;
+  color: var(--joao-text) !important;
+}
+
+.joao-ia-message-content h2 {
+  font-size: 1.2rem;
+}
+.joao-ia-message-content h3 {
+  font-size: 1.1rem;
+}
+.joao-ia-message-content h4 {
+  font-size: 1rem;
+}
+
+.joao-ia-message-content ul,
+.joao-ia-message-content ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.joao-ia-message-content li {
+  margin: 0.3em 0;
+  color: var(--joao-text) !important;
+}
+
+.joao-ia-message.joao-ia-bot .joao-ia-message-content strong {
+  color: var(--joao-primary-dark) !important;
+  font-weight: 700;
+}
+
+.joao-ia-message.joao-ia-user .joao-ia-message-content strong {
+  color: white !important;
+  font-weight: 700;
+}
+
+/* ==================== SUGESTÕES ==================== */
+.joao-ia-suggestions {
+  display: none;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--joao-border) !important;
+  background: var(--joao-surface) !important;
+  max-height: 80px;
+  min-height: 80px;
+  align-items: center;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--joao-primary) transparent;
+}
+
+.joao-ia-suggestions::-webkit-scrollbar {
+  height: 4px;
+}
+
+.joao-ia-suggestions::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    var(--joao-primary),
+    var(--joao-accent)
+  ) !important;
+  border-radius: 2px;
+}
+
+.joao-ia-suggestions::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 2px;
+}
+
+.joao-ia-window.joao-ia-open .joao-ia-suggestions {
+  display: flex;
+}
+
+.joao-ia-suggestion-chip {
+  background: rgba(165, 87, 52, 0.1) !important;
+  color: var(--joao-primary) !important;
+  border: 2px solid transparent !important;
+  padding: 10px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: var(--joao-transition);
+  flex-shrink: 0;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+.joao-ia-suggestion-chip:hover {
+  background: linear-gradient(
+    135deg,
+    var(--joao-primary),
+    var(--joao-accent)
+  ) !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(165, 87, 52, 0.3) !important;
+  border-color: var(--joao-primary) !important;
+}
+
+/* ==================== ÁREA DE INPUT ==================== */
+.joao-ia-input-area {
+  display: flex;
+  padding: 20px;
+  border-top: 1px solid var(--joao-border) !important;
+  background: var(--joao-surface) !important;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.joao-ia-input {
+  flex-grow: 1;
+  padding: 16px 24px;
+  border: 2px solid var(--joao-border) !important;
+  border-radius: 50px;
+  background: var(--joao-bg) !important;
+  color: var(--joao-text) !important;
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--joao-transition);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+.joao-ia-input:focus {
+  border-color: var(--joao-primary) !important;
+  box-shadow: 0 8px 30px rgba(165, 87, 52, 0.2) !important;
+  background: var(--joao-bg) !important;
+  transform: translateY(-2px);
+}
+
+.joao-ia-input::placeholder {
+  color: var(--joao-text-secondary) !important;
+}
+
+.joao-ia-send {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--joao-primary),
+    var(--joao-accent)
+  ) !important;
+  border: none !important;
+  color: white !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: var(--joao-transition);
+  box-shadow: 0 8px 25px rgba(165, 87, 52, 0.3) !important;
+  flex-shrink: 0;
+}
+
+.joao-ia-send:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(165, 87, 52, 0.4) !important;
+}
+
+.joao-ia-send:disabled {
+  background: #cbd5e1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+}
+
+/* ==================== INDICADOR DE DIGITAÇÃO ==================== */
+.joao-ia-typing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  background: var(--joao-bot-bg) !important;
+  border-radius: var(--joao-border-radius);
+  margin: 10px 0;
+  width: fit-content;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--joao-border) !important;
+  align-self: flex-start;
+}
+
+.joao-ia-typing-dot {
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(
+    135deg,
+    var(--joao-primary),
+    var(--joao-accent)
+  ) !important;
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.joao-ia-typing-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.joao-ia-typing-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+.joao-ia-typing-dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes typingBounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ==================== POSIÇÕES ALTERNATIVAS ==================== */
+.joao-ia-position-bottom-left {
+  right: auto;
+  left: 30px;
+}
+
+.joao-ia-position-bottom-left .joao-ia-window {
+  right: auto;
+  left: 0;
+}
+
+.joao-ia-position-top-right {
+  bottom: auto;
+  top: 30px;
+  right: 30px;
+}
+
+.joao-ia-position-top-right .joao-ia-window {
+  bottom: auto;
+  top: 90px;
+}
+
+.joao-ia-position-top-left {
+  bottom: auto;
+  top: 30px;
+  right: auto;
+  left: 30px;
+}
+
+.joao-ia-position-top-left .joao-ia-window {
+  bottom: auto;
+  top: 90px;
+  right: auto;
+  left: 0;
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+@media (max-width: 768px) {
+  .joao-ia-container {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .joao-ia-position-bottom-left {
+    left: 20px;
+  }
+
+  .joao-ia-position-top-right {
+    top: 20px;
+    right: 20px;
+  }
+
+  .joao-ia-position-top-left {
+    top: 20px;
+    left: 20px;
+  }
+
+  .joao-ia-window {
+    width: calc(100vw - 40px);
+    height: 70vh;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    bottom: 90px;
+  }
+
+  .joao-ia-position-bottom-left .joao-ia-window,
+  .joao-ia-position-top-left .joao-ia-window {
+    left: 0;
+    right: auto;
+  }
+
+  .joao-ia-position-top-right .joao-ia-window,
+  .joao-ia-position-top-left .joao-ia-window {
+    bottom: auto;
+    top: 90px;
+  }
+
+  .joao-ia-toggle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .joao-ia-header {
+    padding: 16px;
+  }
+
+  .joao-ia-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .joao-ia-avatar,
+  .joao-ia-avatar-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .joao-ia-messages {
+    padding: 16px;
+  }
+
+  .joao-ia-message {
+    max-width: 90%;
+  }
+
+  .joao-ia-message-content {
+    padding: 14px 18px;
+    font-size: 0.9rem;
+  }
+
+  .joao-ia-suggestions {
+    padding: 14px 16px;
+    max-height: 70px;
+    min-height: 70px;
+  }
+
+  .joao-ia-suggestion-chip {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .joao-ia-input-area {
+    padding: 16px;
+  }
+
+  .joao-ia-input {
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
+
+  .joao-ia-send {
+    width: 46px;
+    height: 46px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .joao-ia-window {
+    height: 80vh;
+    bottom: 80px;
+    border-radius: 20px;
+  }
+
+  .joao-ia-position-top-right .joao-ia-window,
+  .joao-ia-position-top-left .joao-ia-window {
+    top: 80px;
+  }
+
+  .joao-ia-toggle {
+    width: 56px;
+    height: 56px;
+  }
+
+  .joao-ia-header {
+    padding: 14px;
+  }
+
+  .joao-ia-messages {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .joao-ia-message-content {
+    padding: 12px 16px;
+    font-size: 0.85rem;
+  }
+
+  .joao-ia-suggestions {
+    padding: 12px 14px;
+    max-height: 65px;
+    min-height: 65px;
+  }
+
+  .joao-ia-suggestion-chip {
+    padding: 7px 14px;
+    font-size: 0.75rem;
+  }
+
+  .joao-ia-input-area {
+    padding: 14px;
+  }
+
+  .joao-ia-input {
+    padding: 12px 18px;
+    font-size: 0.85rem;
+  }
+
+  .joao-ia-send {
+    width: 44px;
+    height: 44px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ==================== GARANTIR QUE TEMA DO SITE NÃO AFETE O CHAT ==================== */
+/* Estas regras garantem que mesmo se o site tiver classes de tema escuro, o chat permanecerá claro */
+body.dark-mode .joao-ia-container,
+body.dark .joao-ia-container,
+[data-theme="dark"] .joao-ia-container,
+.dark-mode .joao-ia-container,
+.theme-dark .joao-ia-container,
+.night-mode .joao-ia-container,
+body[class*="dark"] .joao-ia-container,
+html.dark-mode .joao-ia-container,
+html.dark .joao-ia-container {
+  /* TODAS as propriedades são forçadas a permanecer em modo claro */
+  --joao-bg: #ffffff !important;
+  --joao-surface: #ffffff !important;
+  --joao-text: #000000 !important;
+  --joao-text-secondary: #555555 !important;
+  --joao-border: rgba(0, 0, 0, 0.1) !important;
+  --joao-bot-bg: #f5f5f5 !important;
+}
+
+/* Garantir que as cores sejam aplicadas mesmo com temas escuros do site */
+body.dark-mode .joao-ia-window,
+body.dark .joao-ia-window,
+[data-theme="dark"] .joao-ia-window,
+.dark-mode .joao-ia-window,
+.theme-dark .joao-ia-window {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+body.dark-mode .joao-ia-messages,
+body.dark .joao-ia-messages,
+[data-theme="dark"] .joao-ia-messages,
+.dark-mode .joao-ia-messages,
+.theme-dark .joao-ia-messages {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+body.dark-mode .joao-ia-input,
+body.dark .joao-ia-input,
+[data-theme="dark"] .joao-ia-input,
+.dark-mode .joao-ia-input,
+.theme-dark .joao-ia-input {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Desabilitar preferência de sistema para tema escuro */
+@media (prefers-color-scheme: dark) {
+  .joao-ia-container {
+    /* Ignorar completamente a preferência do sistema */
+    --joao-bg: #ffffff !important;
+    --joao-surface: #ffffff !important;
+    --joao-text: #000000 !important;
+    --joao-text-secondary: #555555 !important;
+    --joao-border: rgba(0, 0, 0, 0.1) !important;
+    --joao-bot-bg: #f5f5f5 !important;
+  }
+}
+
+/* ==================== OVERRIDE PARA MODO ESCURO GLOBAL ==================== */
+/* Estas regras forçam os elementos internos do chat a usarem as cores CLARAS,
+   mesmo quando uma classe de tema escuro (.dark-mode ou [data-theme="dark"])
+   é aplicada globalmente no body/html. */
+
+/* Força a cor do texto para todos os elementos dentro da janela do chat */
+body.dark-mode .joao-ia-window *,
+[data-theme="dark"] .joao-ia-window * {
+  /* Garante que o texto seja a cor escura (preto) definida no seu CSS */
+  color: var(--joao-text) !important;
+}
+
+/* Corrige especificamente as mensagens do BOT (balões de cor cinza claro) */
+body.dark-mode .joao-ia-window .joao-ia-message:not(.joao-ia-user-message),
+[data-theme="dark"]
+  .joao-ia-window
+  .joao-ia-message:not(.joao-ia-user-message) {
+  color: var(--joao-text) !important; /* Cor do texto preta/escura */
+  background: var(--joao-bot-bg) !important; /* Fundo do balão do bot claro */
+}
+
+/* Corrige o fundo e a cor do texto do campo de digitação (input) */
+body.dark-mode .joao-ia-window .joao-ia-input,
+[data-theme="dark"] .joao-ia-window .joao-ia-input {
+  background-color: var(--joao-surface) !important; /* Fundo do input claro */
+  color: var(
+    --joao-text
+  ) !important; /* Garante que o texto digitado seja escuro */
+  border: 1px solid var(--joao-border) !important; /* Mantém a borda clara */
+}
+
+/* Corrige a cor dos botões/ícones do cabeçalho */
+body.dark-mode .joao-ia-window .joao-ia-header-icon,
+[data-theme="dark"] .joao-ia-window .joao-ia-header-icon {
+  color: var(--joao-text-secondary) !important; /* Garante a cor escura */
+}
+
+/* Corrige os chips de sugestão (se estiverem sendo usados) */
+body.dark-mode .joao-ia-window .joao-ia-suggestion-chip,
+[data-theme="dark"] .joao-ia-window .joao-ia-suggestion-chip {
+  color: var(--joao-text) !important;
+  background-color: var(--joao-bot-bg) !important;
+  border: 1px solid var(--joao-border) !important;
+}
+
+/* Corrige o indicador de digitação (os três pontos) */
+body.dark-mode .joao-ia-window .joao-ia-typing,
+[data-theme="dark"] .joao-ia-window .joao-ia-typing {
+  background-color: var(--joao-bot-bg) !important;
+}

@@ -1,0 +1,2671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Somos Um - Cultura Afro-Brasileira</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="public/modules/joao-ia/joao-ia.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- icone do site -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="public/assets/img/icons/home.ico"
+    />
+
+    <style>
+      /* Paleta de Cores Inspirada em Terra e Ouro/Vermelho Queimado (Culturas Afro-Brasileiras) */
+      :root {
+        --color-primary-terracotta: #a55734;
+        --color-background-deep: #6f2626;
+        --color-accent-gold: #ffd700;
+        --color-text-dark: #2c2c2c;
+        --color-card-light: #f7eedd;
+        --color-african-blue: #1e3a5f;
+        --color-african-purple: #5d3a6f;
+
+        /* Variáveis para sistema de temas */
+        --bg-primary: var(--color-background-deep);
+        --bg-secondary: white;
+        --bg-tertiary: #f8f9fa;
+        --text-primary: var(--color-text-dark);
+        --text-secondary: white;
+        --accent-color: var(--color-primary-terracotta);
+        --border-color: #e0e0e0;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .dark-mode {
+        --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --bg-secondary: #1e1e1e;
+        --bg-tertiary: #2d2d2d;
+        --text-primary: #e0e0e0;
+        --text-secondary: #ffffff;
+        --accent-color: var(--color-primary-terracotta);
+        --border-color: #444;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+        color: var(--text-primary);
+      }
+
+      body {
+        background: var(--bg-primary);
+        min-height: 100vh;
+        padding: 20px;
+        transition: all 0.3s ease;
+        scroll-behavior: smooth;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* CARROSSEL DE BACKGROUND COMPLETO - DENTRO DO CONTAINER */
+      .container {
+        position: relative;
+        background-color: var(--bg-secondary);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        z-index: 10;
+        border: 1px solid var(--border-color);
+        margin-top: 100px;
+      }
+
+      .background-carousel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      .carousel-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .carousel-slide.active {
+        opacity: 0.6;
+      }
+
+      .carousel-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(111, 38, 38, 0.5) 0%,
+          rgba(165, 87, 52, 0.3) 50%,
+          rgba(30, 58, 95, 0.1) 100%
+        );
+        z-index: 2;
+      }
+
+      /* Elementos decorativos africanos */
+      .african-pattern {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 3;
+        opacity: 0.1;
+      }
+
+      .pattern-1 {
+        background-image: radial-gradient(
+          circle,
+          var(--color-accent-gold) 1px,
+          transparent 1px
+        );
+        background-size: 20px 20px;
+      }
+
+      .pattern-2 {
+        background-image: linear-gradient(
+            45deg,
+            transparent 49%,
+            var(--color-african-blue) 49%,
+            var(--color-african-blue) 51%,
+            transparent 51%
+          ),
+          linear-gradient(
+            -45deg,
+            transparent 49%,
+            var(--color-african-purple) 49%,
+            var(--color-african-purple) 51%,
+            transparent 51%
+          );
+        background-size: 30px 30px;
+      }
+
+      /* Padrões de tecidos africanos */
+      .kente-pattern {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 3;
+        opacity: 0.12;
+      }
+
+      .kente-1 {
+        background: linear-gradient(
+              90deg,
+              transparent 50%,
+              var(--color-accent-gold) 50%,
+              var(--color-accent-gold) 60%,
+              transparent 60%
+            )
+            0 0/100px 100px,
+          linear-gradient(
+              0deg,
+              transparent 50%,
+              var(--color-accent-gold) 50%,
+              var(--color-accent-gold) 60%,
+              transparent 60%
+            )
+            0 0/100px 100px,
+          linear-gradient(
+              90deg,
+              transparent 30%,
+              var(--color-primary-terracotta) 30%,
+              var(--color-primary-terracotta) 40%,
+              transparent 40%
+            )
+            0 0/50px 50px,
+          linear-gradient(
+              0deg,
+              transparent 30%,
+              var(--color-primary-terracotta) 30%,
+              var(--color-primary-terracotta) 40%,
+              transparent 40%
+            )
+            0 0/50px 50px;
+      }
+
+      .kente-2 {
+        background: linear-gradient(
+              45deg,
+              transparent 45%,
+              var(--color-african-blue) 45%,
+              var(--color-african-blue) 55%,
+              transparent 55%
+            )
+            0 0/60px 60px,
+          linear-gradient(
+              -45deg,
+              transparent 45%,
+              var(--color-african-purple) 45%,
+              var(--color-african-purple) 55%,
+              transparent 55%
+            )
+            0 0/60px 60px;
+      }
+
+      /* Containers transparentes */
+      .interactive-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+        background-color: transparent !important;
+      }
+
+      .interactive-grid-opaque {
+        opacity: 1 !important;
+        background-color: transparent !important;
+      }
+
+      .search-section {
+        background: transparent !important;
+        padding: 25px;
+        border-radius: 10px;
+        margin: 30px 0;
+        text-align: center;
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .search-section-opaque {
+        opacity: 1 !important;
+        background-color: transparent !important;
+      }
+
+      .quem-somos-opaque {
+        opacity: 0.95 !important;
+        background-color: rgba(248, 249, 250, 0.98) !important;
+      }
+
+      /* Para modo escuro */
+      .dark-mode .interactive-grid-opaque {
+        background-color: transparent !important;
+      }
+
+      .dark-mode .search-section-opaque {
+        background-color: transparent !important;
+      }
+
+      .dark-mode .quem-somos-opaque {
+        background-color: rgba(45, 45, 45, 0.98) !important;
+      }
+
+      /* Navbar e dropdown */
+      .nav-bar {
+        width: calc(100% - 40px);
+        background: var(--bg-secondary);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        padding: 15px 0;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        overflow: visible !important;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        border: 1px solid var(--border-color);
+        transform: translateY(0);
+      }
+
+      .nav-bar.hidden {
+        transform: translateY(-100px);
+      }
+
+      .nav-bar.scrolled {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 15px 15px;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 30px;
+        min-height: 60px;
+        position: relative;
+        z-index: 1001;
+      }
+
+      .nav-header {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 15px;
+      }
+
+      .toggle-btn {
+        background: none;
+        border: 2px solid var(--accent-color);
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        z-index: 1001;
+        display: none;
+      }
+
+      .toggle-btn:hover {
+        background: var(--accent-color);
+        color: var(--bg-secondary);
+        transform: rotate(90deg);
+      }
+
+      .nav-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex: 1;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .nav-links.show {
+        display: flex !important;
+        animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .nav-links li {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        padding: 10px 16px;
+        text-decoration: none;
+        color: var(--text-primary);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        white-space: nowrap;
+        font-size: 0.9rem;
+        border: 2px solid transparent;
+        background: transparent;
+      }
+
+      .nav-links a:hover {
+        background: var(--accent-color);
+        color: var(--bg-secondary);
+        border: 2px solid var(--accent-color);
+      }
+
+      .nav-links a.active {
+        background: var(--bg-secondary);
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+      }
+
+      .nav-links i {
+        font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+        margin-right: 6px;
+        flex-shrink: 0;
+      }
+
+      /* REMOVIDAS AS CLASSES ESPECÍFICAS DOS BOTÕES - TODOS AGORA TEM O MESMO DESIGN */
+
+      /* Área da Conta do Usuário */
+      .user-account {
+        position: static;
+        margin-left: auto;
+      }
+
+      .user-btn {
+        display: flex;
+        align-items: center;
+        background: none;
+        border: 2px solid var(--accent-color);
+        border-radius: 50px;
+        padding: 8px 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: var(--text-primary);
+        font-weight: 600;
+        position: relative;
+        z-index: 1002;
+      }
+
+      .user-btn:hover {
+        background: var(--accent-color);
+        color: var(--bg-secondary);
+      }
+
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--accent-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--bg-secondary);
+        font-weight: bold;
+        margin-right: 8px;
+        font-size: 0.9rem;
+      }
+
+      .user-name {
+        margin-right: 5px;
+        font-size: 0.9rem;
+      }
+
+      /* DROPDOWN */
+      .user-dropdown {
+        position: fixed !important;
+        top: 90px !important;
+        right: 20px !important;
+        background: var(--bg-secondary);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        min-width: 200px;
+        padding: 10px 0;
+        margin-top: 0 !important;
+        display: none;
+        z-index: 1100 !important;
+        border: 1px solid var(--border-color);
+        animation: dropdownFade 0.3s ease;
+        max-width: 250px;
+      }
+
+      .user-dropdown.show {
+        display: block !important;
+      }
+
+      .user-dropdown::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        right: 20px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid var(--bg-secondary);
+        z-index: 1101;
+      }
+
+      @keyframes dropdownFade {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .dropdown-item:hover {
+        background: var(--bg-tertiary);
+      }
+
+      .dropdown-item i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      .dropdown-divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 8px 0;
+      }
+
+      /* Conteúdo principal */
+      .container-content {
+        position: relative;
+        z-index: 4;
+      }
+
+      .header {
+        background-color: var(--accent-color);
+        color: var(--bg-secondary);
+        text-align: center;
+        padding: 40px 25px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 3px solid var(--border-color);
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          transparent 30%,
+          rgba(255, 215, 0, 0.1) 50%,
+          transparent 70%
+        );
+        animation: shimmer 3s infinite linear;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .header h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        font-family: "DoubleBass", "Fugaz One", cursive;
+        text-transform: uppercase;
+        color: var(--color-accent-gold);
+        text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+        margin: 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      .header-logo {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        max-height: 200px;
+      }
+
+      .table-container {
+        padding: 30px;
+      }
+
+      .grid-header {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .grid-row {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .interactive-button {
+        padding: 25px 20px;
+        text-align: center;
+        border: 3px solid var(--accent-color);
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        background-color: var(--accent-color);
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .interactive-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .interactive-button:hover::before {
+        left: 100%;
+      }
+
+      .interactive-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        background-color: #8c472a;
+      }
+
+      /* Barra de Pesquisa */
+      .search-section h3 {
+        color: #d57700;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+
+      .search-bar {
+        display: flex;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: var(--shadow);
+        border-radius: 50px;
+        overflow: hidden;
+        border: 2px solid var(--accent-color);
+      }
+
+      .search-input {
+        flex: 1;
+        padding: 15px 20px;
+        border: none;
+        font-size: 1rem;
+        outline: none;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .search-input::placeholder {
+        color: var(--text-primary);
+        opacity: 0.7;
+      }
+
+      .search-button {
+        background: var(--accent-color);
+        color: var(--bg-secondary);
+        border: none;
+        padding: 15px 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 60px;
+      }
+
+      .search-button:hover {
+        background: var(--bg-secondary);
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+      }
+
+      .search-button i {
+        font-size: 1.2rem;
+      }
+
+      /* Quem Somos Section */
+      .quem-somos-section {
+        padding: 50px 30px;
+        background: var(--bg-tertiary);
+        border-radius: 15px;
+        margin: 30px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+      }
+
+      .quem-somos-section h2 {
+        color: var(--accent-color);
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-family: "DoubleBass", "Fugaz One", cursive;
+        font-weight: 700;
+      }
+
+      .quem-somos-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+      }
+
+      .quem-somos-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .quem-somos-text p {
+        margin-bottom: 20px;
+      }
+
+      .quem-somos-highlights {
+        background: var(--bg-secondary);
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+      }
+
+      .highlight-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding: 15px;
+        border-left: 4px solid var(--accent-color);
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+      }
+
+      .highlight-item:hover {
+        transform: translateX(5px);
+      }
+
+      .highlight-item i {
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        margin-right: 15px;
+        width: 30px;
+        text-align: center;
+        margin-top: 2px;
+      }
+
+      .highlight-item-content h4 {
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .highlight-item-content p {
+        color: var(--text-primary);
+        line-height: 1.6;
+        margin: 0;
+        font-weight: 600;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--bg-tertiary);
+        padding: 30px;
+        text-align: center;
+        border-top: 1px solid var(--border-color);
+        margin-top: 30px;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-logo {
+        font-family: "DoubleBass", "Fugaz One", cursive;
+        font-size: 1.5rem;
+        color: var(--accent-color);
+        font-weight: bold;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1200;
+      }
+
+      .modal-content {
+        background-color: var(--bg-secondary);
+        padding: 30px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        animation: modalFade 0.3s;
+        color: var(--text-primary);
+        border: 3px solid var(--accent-color);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .config-modal-content {
+        max-width: 600px;
+        text-align: left;
+      }
+
+      .config-section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        background: var(--bg-tertiary);
+      }
+
+      .config-section h3 {
+        color: var(--accent-color);
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .config-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px 0;
+      }
+
+      /* Botões interruptor */
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+        vertical-align: middle;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 24px;
+        border: 2px solid #ccc;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      select {
+        padding: 8px 12px;
+        border: 2px solid var(--border-color);
+        border-radius: 5px;
+        background-color: var(--bg-secondary);
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      @keyframes modalFade {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal h2 {
+        color: var(--accent-color);
+        margin-bottom: 15px;
+        font-family: "DoubleBass", "Fugaz One", cursive;
+        font-size: 2.2rem;
+        font-weight: 700;
+      }
+
+      .modal p {
+        margin-bottom: 20px;
+        line-height: 1.6;
+        font-weight: 600;
+      }
+
+      .close-button {
+        background-color: var(--accent-color);
+        color: var(--bg-secondary);
+        border: none;
+        padding: 10px 25px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 700;
+        border: 2px solid var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      .close-button:hover {
+        background-color: var(--bg-secondary);
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+        transform: scale(1.05);
+      }
+
+      /* Direitos autorais */
+      .copyright {
+        text-align: center;
+        padding: 20px;
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        font-size: 0.9rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      /* Caixinha de Ajuda */
+      .help-box {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--bg-secondary);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        padding: 30px;
+        z-index: 1201;
+        max-width: 600px;
+        width: 90%;
+        display: none;
+        border: 3px solid var(--accent-color);
+        animation: helpBoxFade 0.3s ease-out;
+      }
+
+      @keyframes helpBoxFade {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .help-box-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 15px;
+      }
+
+      .help-box-header h2 {
+        color: var(--accent-color);
+        font-family: "DoubleBass", "Fugaz One", cursive;
+        font-size: 1.8rem;
+        margin: 0;
+      }
+
+      .close-help-box {
+        background: none;
+        border: none;
+        color: var(--accent-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .close-help-box:hover {
+        transform: scale(1.2);
+      }
+
+      .help-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .help-item {
+        background: var(--bg-tertiary);
+        padding: 15px;
+        border-radius: 10px;
+        border-left: 4px solid var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      .help-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .help-item-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .help-item-header i {
+        font-size: 1.3rem;
+        color: var(--accent-color);
+        margin-right: 10px;
+        width: 30px;
+        text-align: center;
+      }
+
+      .help-item-header h3 {
+        color: var(--accent-color);
+        margin: 0;
+        font-size: 1.2rem;
+      }
+
+      .help-item p {
+        margin: 0;
+        line-height: 1.5;
+        font-weight: 600;
+      }
+
+      .help-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1199;
+        display: none;
+      }
+
+      /* Para dispositivos móveis */
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .nav-bar {
+          width: calc(100% - 20px);
+          left: 10px;
+          top: 10px;
+          overflow: visible !important;
+        }
+
+        .container {
+          margin-top: 70px;
+        }
+
+        .header {
+          padding: 30px 20px;
+        }
+
+        .header h1 {
+          font-size: 2.2rem;
+          padding-top: 10px;
+        }
+
+        .nav-container {
+          flex-wrap: wrap;
+          padding: 0 20px;
+          gap: 10px;
+        }
+
+        .nav-header {
+          order: 1;
+          flex: 1;
+        }
+
+        .user-account {
+          order: 2;
+          margin-left: 0;
+        }
+
+        .nav-content {
+          order: 3;
+          width: 100%;
+          flex-direction: column;
+          display: none;
+        }
+
+        .nav-content.show {
+          display: flex;
+          animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .user-dropdown {
+          position: fixed !important;
+          top: 80px !important;
+          right: 10px !important;
+          left: 10px !important;
+          width: auto !important;
+          max-width: calc(100% - 20px);
+          z-index: 1100 !important;
+          margin-top: 0 !important;
+        }
+
+        .user-dropdown::before {
+          right: 20px;
+          left: auto;
+        }
+
+        .toggle-btn {
+          display: flex;
+        }
+
+        .nav-links {
+          width: 100%;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .nav-links a {
+          justify-content: flex-start;
+          padding: 12px 16px;
+          font-size: 0.9rem;
+        }
+
+        .nav-links span {
+          display: inline-block;
+          margin-left: 10px;
+        }
+
+        .nav-links i {
+          margin-right: 8px;
+          font-size: 1.1rem;
+        }
+
+        .quem-somos-content {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+
+        .quem-somos-section {
+          margin: 20px;
+          padding: 30px 20px;
+        }
+
+        .search-bar {
+          flex-direction: column;
+          border-radius: 10px;
+        }
+
+        .search-input {
+          border-radius: 10px 10px 0 0;
+        }
+
+        .search-button {
+          border-radius: 0 0 10px 10px;
+          padding: 15px;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .help-box {
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          margin-top: 60px;
+        }
+
+        .header {
+          padding: 25px 15px;
+        }
+
+        .header h1 {
+          font-size: 1.8rem;
+          padding-top: 5px;
+        }
+
+        .interactive-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .quem-somos-section h2 {
+          font-size: 1.8rem;
+        }
+
+        .nav-container {
+          padding: 0 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <script
+    src="public/modules/joao-ia/joao-ia.js"
+    data-bot-name="João IA"
+    data-theme="auto"
+    data-position="bottom-right"
+    data-avatar-url="public/modules/joao-ia/assets/images/joao-avatar.png"
+    data-auto-init="true"
+  ></script>
+
+  <body>
+    <!-- Elementos decorativos africanos -->
+    <div class="african-pattern pattern-1"></div>
+    <div class="african-pattern pattern-2"></div>
+    <div class="kente-pattern kente-1"></div>
+    <div class="kente-pattern kente-2"></div>
+
+    <!-- Nav Bar no Topo - Fixa com efeito de acompanhamento -->
+    <nav class="nav-bar hidden" id="navBar">
+      <div class="nav-container">
+        <div class="nav-header">
+          <button class="toggle-btn" id="toggleBtn" aria-label="Alternar menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+
+        <div class="nav-content">
+          <ul class="nav-links" id="navLinks">
+            <li>
+              <a href="#inicio" class="active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="#quem-somos">
+                <i class="fas fa-users"></i>
+                <span>Quem Somos</span>
+              </a>
+            </li>
+            <li>
+              <a href="biblio.html" id="bibliotecaNavBtn">
+                <i class="fas fa-book"></i>
+                <span>Biblioteca</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" id="configBtn">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" id="navHelpBtn">
+                <i class="fas fa-question-circle"></i>
+                <span>Dúvidas</span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Área da Conta do Usuário -->
+          <div class="user-account">
+            <button class="user-btn" id="userBtn">
+              <div class="user-avatar" id="userAvatar">?</div>
+              <span class="user-name" id="userName">Entrar</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="user-dropdown" id="userDropdown">
+              <a href="#" class="dropdown-item" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Fazer Login
+              </a>
+              <a href="#" class="dropdown-item" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Criar Conta
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- CARROSSEL DE BACKGROUND COMPLETO -->
+      <div class="background-carousel" id="backgroundCarousel">
+        <!-- As imagens serão injetadas pelo JavaScript -->
+      </div>
+      <div class="carousel-overlay"></div>
+
+      <!-- Conteúdo principal com z-index maior -->
+      <div class="container-content">
+        <div class="header" id="inicio">
+          <img
+            src="public/assets/img/icons/Somos_Um.logo.png"
+            alt="Logo Somos Um"
+            class="header-logo"
+            style="transform: scale(1.5)"
+          />
+        </div>
+
+        <div class="table-container">
+          <div class="interactive-grid interactive-grid-opaque">
+            <div class="grid-header">
+              <a
+                href="educador.html"
+                class="interactive-button"
+                id="educadorButton"
+              >
+                <i class="fas fa-chalkboard-teacher"></i> EDUCADOR
+              </a>
+              <a
+                href="comun.html"
+                class="interactive-button"
+                id="comunidadeButton"
+              >
+                <i class="fas fa-hands-helping"></i> COMUNIDADE
+              </a>
+            </div>
+            <div class="grid-row">
+              <a
+                href="estud.html"
+                class="interactive-button"
+                id="estudanteButton"
+              >
+                <i class="fas fa-user-graduate"></i> ESTUDANTE
+              </a>
+            </div>
+          </div>
+
+          <!-- Barra de Pesquisa -->
+          <div class="search-section search-section-opaque">
+            <h3>Encontre o que precisa</h3>
+            <div class="search-bar">
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Digite o que você está procurando..."
+              />
+              <button class="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seção Quem Somos -->
+        <section class="quem-somos-section quem-somos-opaque" id="quem-somos">
+          <h2>Quem Somos Nós</h2>
+          <div class="quem-somos-content">
+            <div class="quem-somos-text">
+              <p>
+                Consolidamo-nos como uma plataforma digital de referência,
+                dedicada a fomentar e enriquecer o ensino da História e Cultura
+                Afro-Brasileira no cenário acadêmico nacional. Nosso propósito
+                fundamental é ser o pilar de apoio para educadores, fornecendo
+                um repositório completo e dinâmico que abrange desde materiais
+                de estudo aprofundados e planos de aula prontos para aplicação
+                até metodologias interativas e inovadoras.
+              </p>
+
+              <p>
+                Além de ser um repositório, nossa plataforma funciona como um
+                hub intelectual, criando um ambiente que não apenas facilita,
+                mas também incentiva o acesso a uma vasta produção acadêmica.
+                Congregamos, num só local, artigos científicos já consagrados e
+                novas publicações que emergem sobre a temática central e seus
+                desdobramentos correlatos, promovendo assim a contínua
+                atualização e qualificação dos saberes.
+              </p>
+
+              <p>
+                Nossa atuação é estrategicamente alinhada para ser um
+                instrumento de efetivação da Lei Nº 10.639/2003. Apoiamos
+                educadores na missão de transcender um currículo essencialmente
+                eurocêntrico, trabalhando para a construção de uma grade
+                curricular que seja verdadeiramente plural e representativa. O
+                objetivo final é gradual e progressive: centrar a narrativa
+                histórica na riqueza e na complexidade da experiência nacional,
+                valorizando as matrizes africanas que são fundantes da
+                identidade brasileira.
+              </p>
+
+              <p>
+                Fundada em 22 de Novembro de 2025, esta iniciativa nasce do
+                compromisso com um futuro educacional mais equitativo e
+                consciente, colocando a tecnologia a serviço do resgate, da
+                preservação e da valorização de nossas raízes e histórias.
+              </p>
+            </div>
+
+            <div class="quem-somos-highlights">
+              <div class="highlight-item">
+                <i class="fas fa-calendar-check"></i>
+                <div class="highlight-item-content">
+                  <h4>Fundada em 2025</h4>
+                  <p>
+                    Iniciativa pioneira no ensino da História e Cultura
+                    Afro-Brasileira
+                  </p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <i class="fas fa-gavel"></i>
+                <div class="highlight-item-content">
+                  <h4>Lei Nº 10.639/2003</h4>
+                  <p>
+                    Promulgada em 9 de janeiro de 2003, representa um marco
+                    legislativo fundamental na educação brasileira, ao alterar a
+                    Lei de Diretrizes e Bases da Educação Nacional (LDB).
+                  </p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <i class="fas fa-book"></i>
+                <div class="highlight-item-content">
+                  <h4>Conteúdos Obrigatórios</h4>
+                  <p>
+                    História da África e dos Africanos; luta dos negros no
+                    Brasil; cultura negra brasileira; o negro na formação da
+                    sociedade nacional.
+                  </p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <i class="fas fa-bullseye"></i>
+                <div class="highlight-item-content">
+                  <h4>Objetivo da Lei</h4>
+                  <p>
+                    Superar a perspectiva eurocêntrica que historicamente
+                    dominou os currículos, promovendo uma revisão crítica da
+                    narrativa nacional e valorizando a matriz africana como
+                    fundadora da identidade brasileira.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="footer-content">
+            <div class="footer-logo">Somos Um</div>
+            <div class="footer-info">
+              <p>
+                Plataforma dedicada ao ensino da História e Cultura
+                Afro-Brasileira
+              </p>
+            </div>
+          </div>
+        </footer>
+
+        <!-- Direitos autorais -->
+        <div class="copyright">
+          <p>&copy; 2025 Somos Um - Todos os direitos reservados</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caixinha de Ajuda -->
+    <div class="help-overlay" id="helpOverlay"></div>
+    <div class="help-box" id="helpBox">
+      <div class="help-box-header">
+        <h2><i class="fas fa-question-circle"></i> Como usar a plataforma</h2>
+        <button
+          class="close-help-box"
+          id="closeHelpBox"
+          aria-label="Fechar ajuda"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="help-content">
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h3>EDUCADOR</h3>
+          </div>
+          <p>
+            Acesso a materiais didáticos, planos de aula, formação continuada e
+            recursos para implementação da Lei 10.639/2003 em sala de aula.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-user-graduate"></i>
+            <h3>ESTUDANTE</h3>
+          </div>
+          <p>
+            Recursos de estudo, materiais complementares, atividades interativas
+            e acesso a conteúdos sobre História e Cultura Afro-Brasileira.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-hands-helping"></i>
+            <h3>COMUNIDADE</h3>
+          </div>
+          <p>
+            Espaço para engajamento comunitário, projetos colaborativos, eventos
+            culturais e troca de experiências sobre a cultura afro-brasileira.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-book"></i>
+            <h3>BIBLIOTECA</h3>
+          </div>
+          <p>
+            Acervo digital com livros, artigos, vídeos e materiais de referência
+            sobre cultura afro-brasileira e africana.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-cog"></i>
+            <h3>CONFIGURAÇÕES</h3>
+          </div>
+          <p>
+            Personalize sua experiência na plataforma ajustando temas,
+            notificações e preferências de acessibilidade.
+          </p>
+        </div>
+        <div class="help-item">
+          <div class="help-item-header">
+            <i class="fas fa-search"></i>
+            <h3>BARRA DE PESQUISA</h3>
+          </div>
+          <p>
+            Encontre rapidamente conteúdos, materiais e recursos específicos
+            dentro da plataforma.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modais -->
+    <div class="modal" id="configModal">
+      <div class="modal-content config-modal-content">
+        <h2><i class="fas fa-cog"></i> Configurações</h2>
+
+        <div class="config-section">
+          <h3>Aparência</h3>
+          <div class="config-option">
+            <span>Tema Escuro</span>
+            <label class="switch">
+              <input type="checkbox" id="darkTheme" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="config-section">
+          <h3>Notificações</h3>
+          <div class="config-option">
+            <span>Notificações por Email</span>
+            <label class="switch">
+              <input type="checkbox" id="emailNotifications" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="config-option">
+            <span>Notificações do Sistema</span>
+            <label class="switch">
+              <input type="checkbox" id="systemNotifications" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="config-section">
+          <h3>Preferências</h3>
+          <div class="config-option">
+            <span>Tamanho da Fonte</span>
+            <select id="fontSizeSelect">
+              <option value="small">Pequeno</option>
+              <option value="medium" selected>Médio</option>
+              <option value="large">Grande</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px">
+          <button class="close-button" data-modal="configModal">
+            Salvar e Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Login -->
+    <div class="modal" id="loginModal">
+      <div class="modal-content config-modal-content">
+        <h2><i class="fas fa-sign-in-alt"></i> Fazer Login</h2>
+
+        <div class="config-section">
+          <h3>Informações de Acesso</h3>
+          <div class="config-option">
+            <span>Email</span>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="seu@email.com"
+              style="
+                padding: 8px 12px;
+                border: 2px solid var(--border-color);
+                border-radius: 5px;
+                background-color: var(--bg-secondary);
+                font-size: 0.9rem;
+                color: var(--text-primary);
+                font-weight: 600;
+              "
+            />
+          </div>
+          <div class="config-option">
+            <span>Senha</span>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Sua senha"
+              style="
+                padding: 8px 12px;
+                border: 2px solid var(--border-color);
+                border-radius: 5px;
+                background-color: var(--bg-secondary);
+                font-size: 0.9rem;
+                color: var(--text-primary);
+                font-weight: 600;
+              "
+            />
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px">
+          <button class="close-button" id="loginSubmit">Entrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div class="modal" id="registerModal">
+      <div class="modal-content config-modal-content">
+        <h2><i class="fas fa-user-plus"></i> Criar Conta</h2>
+
+        <div class="config-section">
+          <h3>Informações Pessoais</h3>
+          <div class="config-option">
+            <span>Nome Completo</span>
+            <input
+              type="text"
+              id="registerName"
+              placeholder="Seu nome completo"
+              style="
+                padding: 8px 12px;
+                border: 2px solid var(--border-color);
+                border-radius: 5px;
+                background-color: var(--bg-secondary);
+                font-size: 0.9rem;
+                color: var(--text-primary);
+                font-weight: 600;
+              "
+            />
+          </div>
+          <div class="config-option">
+            <span>Email</span>
+            <input
+              type="email"
+              id="registerEmail"
+              placeholder="seu@email.com"
+              style="
+                padding: 8px 12px;
+                border: 2px solid var(--border-color);
+                border-radius: 5px;
+                background-color: var(--bg-secondary);
+                font-size: 0.9rem;
+                color: var(--text-primary);
+                font-weight: 600;
+              "
+            />
+          </div>
+          <div class="config-option">
+            <span>Senha</span>
+            <input
+              type="password"
+              id="registerPassword"
+              placeholder="Crie uma senha"
+              style="
+                padding: 8px 12px;
+                border: 2px solid var(--border-color);
+                border-radius: 5px;
+                background-color: var(--bg-secondary);
+                font-size: 0.9rem;
+                color: var(--text-primary);
+                font-weight: 600;
+              "
+            />
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px">
+          <button class="close-button" id="registerSubmit">Criar Conta</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ========== CLASSE PRINCIPAL DO APLICATIVO ==========
+      class SomosUmApp {
+        constructor() {
+          this.navbar = new NavbarManager();
+          this.modalManager = new ModalManager();
+          this.settings = new SettingsManager();
+          this.search = new SearchManager();
+          this.helpBox = new HelpBoxManager();
+          this.userAccount = new UserAccountManager();
+          this.backgroundCarousel = new BackgroundCarouselManager();
+
+          this.init();
+        }
+
+        init() {
+          this.navbar.init();
+          this.modalManager.init();
+          this.settings.init();
+          this.search.init();
+          this.helpBox.init();
+          this.userAccount.init();
+          this.backgroundCarousel.init();
+
+          this.initSmoothScroll();
+          this.settings.loadPreferences();
+          this.setupInteractiveButtons();
+          this.setupNavLinks();
+        }
+
+        initSmoothScroll() {
+          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+              const href = this.getAttribute("href");
+
+              if (href === "#inicio" || href === "#") {
+                e.preventDefault();
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+                return;
+              }
+
+              if (href === "#" || !href) {
+                e.preventDefault();
+                return;
+              }
+
+              e.preventDefault();
+              const target = document.querySelector(href);
+              if (target) {
+                target.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }
+            });
+          });
+        }
+
+        setupInteractiveButtons() {
+          const communityGridBtn = document.getElementById("comunidadeButton");
+          if (communityGridBtn) {
+            communityGridBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              window.location.href = "comun.html";
+            });
+          }
+
+          const educatorGridBtn = document.getElementById("educadorButton");
+          if (educatorGridBtn) {
+            educatorGridBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              window.location.href = "educador.html";
+            });
+          }
+
+          const studentGridBtn = document.getElementById("estudanteButton");
+          if (studentGridBtn) {
+            studentGridBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              window.location.href = "estud.html";
+            });
+          }
+        }
+
+        setupNavLinks() {
+          const navLinks = document.querySelectorAll(".nav-links a");
+
+          navLinks.forEach((link) => {
+            link.addEventListener("click", (e) => {
+              // Atualizar estado ativo
+              navLinks.forEach((l) => l.classList.remove("active"));
+              link.classList.add("active");
+
+              // Fechar menu em mobile
+              if (window.innerWidth <= 768) {
+                this.navbar.closeMenu();
+              }
+            });
+          });
+        }
+      }
+
+      // ========== GERENCIADOR DA NAVBAR ==========
+      class NavbarManager {
+        constructor() {
+          this.navBar = document.getElementById("navBar");
+          this.toggleBtn = document.getElementById("toggleBtn");
+          this.navContent = document.querySelector(".nav-content");
+          this.navLinks = document.getElementById("navLinks");
+
+          this.lastScrollY = window.scrollY;
+          this.ticking = false;
+          this.inactivityTimer = null;
+          this.hideDelay = 3000;
+          this.isMenuOpen = false;
+          this.isAtTop = true;
+        }
+
+        init() {
+          this.setupToggle();
+          this.setupScrollBehavior();
+          this.setupInactivityDetection();
+
+          setTimeout(() => {
+            this.showNavbar();
+          }, 100);
+
+          this.checkIfAtTop();
+        }
+
+        checkIfAtTop() {
+          this.isAtTop = window.scrollY <= 10;
+          if (this.isAtTop) {
+            this.showNavbar();
+          }
+        }
+
+        setupToggle() {
+          if (this.toggleBtn) {
+            this.toggleBtn.addEventListener("click", () => {
+              this.toggleMenu();
+              this.resetInactivityTimer();
+            });
+          }
+        }
+
+        toggleMenu() {
+          if (this.isMenuOpen) {
+            this.closeMenu();
+          } else {
+            this.openMenu();
+          }
+        }
+
+        openMenu() {
+          if (this.navContent) {
+            this.navContent.classList.add("show");
+            this.isMenuOpen = true;
+
+            const icon = this.toggleBtn.querySelector("i");
+            if (icon) {
+              icon.classList.remove("fa-bars");
+              icon.classList.add("fa-times");
+            }
+          }
+        }
+
+        closeMenu() {
+          if (this.navContent) {
+            this.navContent.classList.remove("show");
+            this.isMenuOpen = false;
+
+            const icon = this.toggleBtn.querySelector("i");
+            if (icon) {
+              icon.classList.remove("fa-times");
+              icon.classList.add("fa-bars");
+            }
+          }
+        }
+
+        setupScrollBehavior() {
+          window.addEventListener("scroll", () => {
+            if (!this.ticking) {
+              requestAnimationFrame(() => this.updateNavbar());
+              this.ticking = true;
+            }
+            this.resetInactivityTimer();
+          });
+        }
+
+        setupInactivityDetection() {
+          [
+            "mousemove",
+            "mousedown",
+            "keypress",
+            "scroll",
+            "touchstart",
+          ].forEach((event) => {
+            document.addEventListener(event, () => this.resetInactivityTimer());
+          });
+
+          this.resetInactivityTimer();
+        }
+
+        resetInactivityTimer() {
+          this.isAtTop = window.scrollY <= 10;
+
+          if (this.isAtTop) {
+            this.showNavbar();
+            if (this.inactivityTimer) {
+              clearTimeout(this.inactivityTimer);
+            }
+            return;
+          }
+
+          this.showNavbar();
+
+          if (this.inactivityTimer) {
+            clearTimeout(this.inactivityTimer);
+          }
+
+          this.inactivityTimer = setTimeout(() => {
+            if (!this.isAtTop) {
+              this.hideNavbar();
+            }
+          }, this.hideDelay);
+        }
+
+        updateNavbar() {
+          const currentScrollY = window.scrollY;
+          this.isAtTop = currentScrollY <= 10;
+
+          if (this.isAtTop) {
+            this.showNavbar();
+            this.navBar.classList.remove("scrolled");
+            this.lastScrollY = currentScrollY;
+            this.ticking = false;
+            return;
+          }
+
+          if (currentScrollY > this.lastScrollY && currentScrollY > 100) {
+            this.hideNavbar();
+          } else {
+            this.showNavbar();
+          }
+
+          if (currentScrollY > 50) {
+            this.navBar.classList.add("scrolled");
+          } else {
+            this.navBar.classList.remove("scrolled");
+          }
+
+          this.lastScrollY = currentScrollY;
+          this.ticking = false;
+        }
+
+        hideNavbar() {
+          if (!this.isAtTop && this.navBar) {
+            this.navBar.classList.add("hidden");
+          }
+        }
+
+        showNavbar() {
+          if (this.navBar) {
+            this.navBar.classList.remove("hidden");
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DE MODAIS ==========
+      class ModalManager {
+        constructor() {
+          this.buttonModalMap = {
+            configBtn: "configModal",
+            loginBtn: "loginModal",
+            registerBtn: "registerModal",
+          };
+        }
+
+        init() {
+          this.setupModalButtons();
+          this.setupCloseButtons();
+          this.setupOutsideClick();
+          this.setupEscapeKey();
+          this.setupHelpButtons();
+          this.setupLoginRegister();
+        }
+
+        setupHelpButtons() {
+          const navHelpBtn = document.getElementById("navHelpBtn");
+          if (navHelpBtn) {
+            navHelpBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              const helpBox = document.getElementById("helpBox");
+              const helpOverlay = document.getElementById("helpOverlay");
+              if (helpBox && helpOverlay) {
+                helpBox.style.display = "block";
+                helpOverlay.style.display = "block";
+              }
+            });
+          }
+        }
+
+        setupModalButtons() {
+          Object.keys(this.buttonModalMap).forEach((buttonId) => {
+            const button = document.getElementById(buttonId);
+            const modalId = this.buttonModalMap[buttonId];
+
+            if (button) {
+              button.addEventListener("click", (e) => {
+                e.preventDefault();
+                this.openModal(modalId);
+              });
+            }
+          });
+
+          const bibliotecaBtn = document.getElementById("bibliotecaNavBtn");
+          if (bibliotecaBtn) {
+            bibliotecaBtn.addEventListener("click", (e) => {
+              // Link normal para biblio.html
+            });
+          }
+        }
+
+        setupCloseButtons() {
+          document.querySelectorAll(".close-button").forEach((button) => {
+            if (!button.id) {
+              button.addEventListener("click", () => {
+                const modalId = button.getAttribute("data-modal");
+                this.closeModal(modalId);
+              });
+            }
+          });
+
+          document
+            .getElementById("closeHelpBox")
+            .addEventListener("click", () => {
+              document.getElementById("helpBox").style.display = "none";
+              document.getElementById("helpOverlay").style.display = "none";
+            });
+        }
+
+        setupOutsideClick() {
+          document.querySelectorAll(".modal").forEach((modal) => {
+            modal.addEventListener("click", (e) => {
+              if (e.target === modal) {
+                modal.style.display = "none";
+              }
+            });
+          });
+
+          document
+            .getElementById("helpOverlay")
+            .addEventListener("click", () => {
+              document.getElementById("helpBox").style.display = "none";
+              document.getElementById("helpOverlay").style.display = "none";
+            });
+        }
+
+        setupEscapeKey() {
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              document.querySelectorAll(".modal").forEach((modal) => {
+                modal.style.display = "none";
+              });
+              const helpBox = document.getElementById("helpBox");
+              const helpOverlay = document.getElementById("helpOverlay");
+              if (helpBox && helpOverlay) {
+                helpBox.style.display = "none";
+                helpOverlay.style.display = "none";
+              }
+            }
+          });
+        }
+
+        setupLoginRegister() {
+          document
+            .getElementById("loginSubmit")
+            .addEventListener("click", () => {
+              const email = document.getElementById("loginEmail").value;
+              const password = document.getElementById("loginPassword").value;
+
+              if (email && password) {
+                localStorage.setItem("userLoggedIn", "true");
+                localStorage.setItem(
+                  "userData",
+                  JSON.stringify({
+                    name: email.split("@")[0],
+                    avatarInitial: email[0].toUpperCase(),
+                  })
+                );
+
+                document
+                  .querySelector(".user-account")
+                  .querySelector(".user-name").textContent =
+                  email.split("@")[0];
+                document
+                  .querySelector(".user-account")
+                  .querySelector(".user-avatar").textContent =
+                  email[0].toUpperCase();
+
+                this.closeModal("loginModal");
+                alert("Login realizado com sucesso!");
+              } else {
+                alert("Por favor, preencha todos os campos.");
+              }
+            });
+
+          document
+            .getElementById("registerSubmit")
+            .addEventListener("click", () => {
+              const name = document.getElementById("registerName").value;
+              const email = document.getElementById("registerEmail").value;
+              const password =
+                document.getElementById("registerPassword").value;
+
+              if (name && email && password) {
+                localStorage.setItem("userLoggedIn", "true");
+                localStorage.setItem(
+                  "userData",
+                  JSON.stringify({
+                    name: name,
+                    avatarInitial: name[0].toUpperCase(),
+                  })
+                );
+
+                document
+                  .querySelector(".user-account")
+                  .querySelector(".user-name").textContent = name;
+                document
+                  .querySelector(".user-account")
+                  .querySelector(".user-avatar").textContent =
+                  name[0].toUpperCase();
+
+                this.closeModal("registerModal");
+                alert("Conta criada com sucesso!");
+              } else {
+                alert("Por favor, preencha todos os campos.");
+              }
+            });
+        }
+
+        openModal(modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.style.display = "flex";
+          }
+        }
+
+        closeModal(modalId) {
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            modal.style.display = "none";
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DE CONFIGURAÇÕES ==========
+      class SettingsManager {
+        constructor() {
+          this.darkThemeToggle = document.getElementById("darkTheme");
+          this.fontSizeSelect = document.getElementById("fontSizeSelect");
+        }
+
+        init() {
+          this.setupThemeToggles();
+          this.setupFontSize();
+        }
+
+        setupThemeToggles() {
+          if (this.darkThemeToggle) {
+            this.darkThemeToggle.addEventListener("change", () => {
+              document.body.classList.toggle(
+                "dark-mode",
+                this.darkThemeToggle.checked
+              );
+              localStorage.setItem("darkTheme", this.darkThemeToggle.checked);
+            });
+          }
+        }
+
+        setupFontSize() {
+          if (this.fontSizeSelect) {
+            this.fontSizeSelect.addEventListener("change", () => {
+              document.body.style.fontSize =
+                this.fontSizeSelect.value === "small"
+                  ? "14px"
+                  : this.fontSizeSelect.value === "large"
+                  ? "18px"
+                  : "16px";
+              localStorage.setItem("fontSize", this.fontSizeSelect.value);
+            });
+          }
+        }
+
+        loadPreferences() {
+          if (
+            localStorage.getItem("darkTheme") === "true" &&
+            this.darkThemeToggle
+          ) {
+            this.darkThemeToggle.checked = true;
+            document.body.classList.add("dark-mode");
+          }
+
+          const savedFontSize = localStorage.getItem("fontSize");
+          if (savedFontSize && this.fontSizeSelect) {
+            this.fontSizeSelect.value = savedFontSize;
+            document.body.style.fontSize =
+              savedFontSize === "small"
+                ? "14px"
+                : savedFontSize === "large"
+                ? "18px"
+                : "16px";
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DE PESQUISA ==========
+      class SearchManager {
+        constructor() {
+          this.searchButton = document.querySelector(".search-button");
+          this.searchInput = document.querySelector(".search-input");
+        }
+
+        init() {
+          this.setupSearch();
+        }
+
+        setupSearch() {
+          if (this.searchButton && this.searchInput) {
+            this.searchButton.addEventListener("click", () => {
+              this.performSearch();
+            });
+
+            this.searchInput.addEventListener("keypress", (e) => {
+              if (e.key === "Enter") {
+                this.performSearch();
+              }
+            });
+          }
+        }
+
+        performSearch() {
+          if (!this.searchInput) return;
+
+          const searchTerm = this.searchInput.value.trim();
+          if (searchTerm) {
+            window.location.href = `biblio.html?search=${encodeURIComponent(
+              searchTerm
+            )}`;
+          } else {
+            alert("Por favor, digite algo para buscar.");
+            if (this.searchInput) {
+              this.searchInput.focus();
+            }
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DA CAIXINHA DE AJUDA ==========
+      class HelpBoxManager {
+        constructor() {
+          this.helpBox = document.getElementById("helpBox");
+          this.closeHelpBox = document.getElementById("closeHelpBox");
+          this.helpOverlay = document.getElementById("helpOverlay");
+        }
+
+        init() {
+          this.setupHelpBox();
+        }
+
+        setupHelpBox() {
+          if (this.closeHelpBox) {
+            this.closeHelpBox.addEventListener("click", () => {
+              this.closeHelpBoxFunc();
+            });
+          }
+
+          if (this.helpOverlay) {
+            this.helpOverlay.addEventListener("click", () => {
+              this.closeHelpBoxFunc();
+            });
+          }
+        }
+
+        closeHelpBoxFunc() {
+          if (this.helpBox) {
+            this.helpBox.style.display = "none";
+          }
+          if (this.helpOverlay) {
+            this.helpOverlay.style.display = "none";
+          }
+          document.body.style.overflow = "auto";
+        }
+      }
+
+      // ========== GERENCIADOR DA CONTA DO USUÁRIO ==========
+      class UserAccountManager {
+        constructor() {
+          this.userBtn = document.getElementById("userBtn");
+          this.userDropdown = document.getElementById("userDropdown");
+          this.userAvatar = document.getElementById("userAvatar");
+          this.userName = document.getElementById("userName");
+          this.loginBtn = document.getElementById("loginBtn");
+          this.registerBtn = document.getElementById("registerBtn");
+
+          this.isDropdownOpen = false;
+          this.isLoggedIn = false;
+        }
+
+        init() {
+          this.setupUserDropdown();
+          this.checkLoginStatus();
+        }
+
+        setupUserDropdown() {
+          if (this.userBtn) {
+            this.userBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              this.toggleDropdown();
+            });
+          }
+
+          if (this.loginBtn) {
+            this.loginBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              this.openLoginModal();
+            });
+          }
+
+          if (this.registerBtn) {
+            this.registerBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              this.openRegisterModal();
+            });
+          }
+
+          document.addEventListener("click", (e) => {
+            if (this.isDropdownOpen) {
+              const isClickInsideDropdown =
+                this.userDropdown && this.userDropdown.contains(e.target);
+              const isClickOnButton =
+                this.userBtn && this.userBtn.contains(e.target);
+
+              if (!isClickInsideDropdown && !isClickOnButton) {
+                this.closeDropdown();
+              }
+            }
+          });
+
+          window.addEventListener("scroll", () => {
+            if (this.isDropdownOpen) {
+              this.closeDropdown();
+            }
+          });
+
+          window.addEventListener("resize", () => {
+            if (this.isDropdownOpen) {
+              this.closeDropdown();
+            }
+          });
+
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && this.isDropdownOpen) {
+              this.closeDropdown();
+            }
+          });
+        }
+
+        toggleDropdown() {
+          if (this.isDropdownOpen) {
+            this.closeDropdown();
+          } else {
+            this.openDropdown();
+          }
+        }
+
+        openDropdown() {
+          if (this.userDropdown) {
+            this.closeAllOtherDropdowns();
+
+            this.calculateDropdownPosition();
+
+            this.userDropdown.classList.add("show");
+            this.userDropdown.style.display = "block";
+            this.isDropdownOpen = true;
+
+            this.userBtn.classList.add("dropdown-active");
+          }
+        }
+
+        closeDropdown() {
+          if (this.userDropdown && this.isDropdownOpen) {
+            this.userDropdown.classList.remove("show");
+            this.userDropdown.style.display = "none";
+            this.isDropdownOpen = false;
+            this.userBtn.classList.remove("dropdown-active");
+          }
+        }
+
+        closeAllOtherDropdowns() {
+          document
+            .querySelectorAll(".user-dropdown.show")
+            .forEach((dropdown) => {
+              if (dropdown !== this.userDropdown) {
+                dropdown.classList.remove("show");
+                dropdown.style.display = "none";
+              }
+            });
+
+          document
+            .querySelectorAll(".user-btn.dropdown-active")
+            .forEach((btn) => {
+              if (btn !== this.userBtn) {
+                btn.classList.remove("dropdown-active");
+              }
+            });
+        }
+
+        calculateDropdownPosition() {
+          if (!this.userDropdown || !this.userBtn) return;
+
+          const btnRect = this.userBtn.getBoundingClientRect();
+          const navbarRect = document
+            .getElementById("navBar")
+            .getBoundingClientRect();
+
+          if (window.innerWidth > 768) {
+            this.userDropdown.style.position = "fixed";
+            this.userDropdown.style.top = `${navbarRect.bottom + 5}px`;
+            this.userDropdown.style.right = `${
+              window.innerWidth - btnRect.right
+            }px`;
+          } else {
+            this.userDropdown.style.position = "fixed";
+            this.userDropdown.style.top = `${navbarRect.bottom + 5}px`;
+            this.userDropdown.style.left = "10px";
+            this.userDropdown.style.right = "10px";
+            this.userDropdown.style.width = "auto";
+          }
+        }
+
+        checkLoginStatus() {
+          const userLoggedIn = localStorage.getItem("userLoggedIn");
+          if (userLoggedIn === "true") {
+            this.isLoggedIn = true;
+            const userData = JSON.parse(
+              localStorage.getItem("userData") || "{}"
+            );
+            if (this.userAvatar) {
+              this.userAvatar.textContent = userData.avatarInitial || "?";
+            }
+            if (this.userName) {
+              this.userName.textContent = userData.name || "Usuário";
+            }
+          } else {
+            this.isLoggedIn = false;
+            if (this.userAvatar) {
+              this.userAvatar.textContent = "?";
+            }
+            if (this.userName) {
+              this.userName.textContent = "Entrar";
+            }
+          }
+        }
+
+        openLoginModal() {
+          const loginModal = document.getElementById("loginModal");
+          if (loginModal) {
+            this.closeDropdown();
+            loginModal.style.display = "flex";
+            loginModal.style.zIndex = "1300";
+          }
+        }
+
+        openRegisterModal() {
+          const registerModal = document.getElementById("registerModal");
+          if (registerModal) {
+            this.closeDropdown();
+            registerModal.style.display = "flex";
+            registerModal.style.zIndex = "1300";
+          }
+        }
+      }
+
+      // ========== GERENCIADOR DO CARROSSEL DE BACKGROUND ==========
+      class BackgroundCarouselManager {
+        constructor() {
+          this.images = [
+            "https://images.unsplash.com/photo-1674469772804-2eb035c8738b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGFmcm9icmFzaWxpYW58ZW58MHx8MHx8fDA%3D",
+            "https://plus.unsplash.com/premium_photo-1710380800121-099195937629?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGNhcG9laXJhfGVufDB8fDB8fHww",
+            "https://images.unsplash.com/photo-1545692770-f0029a91f3ba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZmF2ZWxhfGVufDB8fDB8fHww",
+            "https://images.unsplash.com/photo-1622522867204-35b68cb3d200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmFoaWF8ZW58MHx8MHx8fDA%3D",
+            "https://images.unsplash.com/photo-1581475319737-4ae69b8926c7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGJhaGlhfGVufDB8fDB8fHww",
+          ];
+          this.currentIndex = 0;
+          this.intervalId = null;
+          this.slideInterval = 6000;
+          this.container = document.getElementById("backgroundCarousel");
+        }
+
+        init() {
+          this.initializeSlides();
+          this.startAutoSlide();
+        }
+
+        initializeSlides() {
+          if (!this.container) return;
+
+          this.images.forEach((url, index) => {
+            const slide = document.createElement("div");
+            slide.className = "carousel-slide";
+            if (index === 0) slide.classList.add("active");
+
+            slide.style.backgroundImage = `url('${url}')`;
+
+            slide.onerror = function () {
+              this.style.backgroundImage = `url('https://placehold.co/1920x1080/374151/ffffff?text=Cultura+Afro-Brasileira+${
+                index + 1
+              }')`;
+            };
+
+            this.container.appendChild(slide);
+          });
+        }
+
+        showSlide(index) {
+          const slides = this.container.querySelectorAll(".carousel-slide");
+
+          slides.forEach((slide) => slide.classList.remove("active"));
+
+          if (slides[index]) {
+            slides[index].classList.add("active");
+          }
+        }
+
+        changeSlide(step) {
+          let newIndex = this.currentIndex + step;
+
+          if (newIndex >= this.images.length) {
+            newIndex = 0;
+          } else if (newIndex < 0) {
+            newIndex = this.images.length - 1;
+          }
+
+          this.currentIndex = newIndex;
+          this.showSlide(this.currentIndex);
+        }
+
+        startAutoSlide() {
+          this.intervalId = setInterval(() => {
+            this.changeSlide(1);
+          }, this.slideInterval);
+        }
+      }
+
+      // ========== INICIALIZAÇÃO DO APLICATIVO ==========
+      document.addEventListener("DOMContentLoaded", () => {
+        const app = new SomosUmApp();
+      });
+    </script>
+  </body>
+</html>
