@@ -27,5 +27,6 @@ está disponível na pasta:
 📁 [`/docs`](./docs)
 
 ## Materiais Externos
+- 🌐 Aplicação funcional: [LINK_AQUI](https://somosum.netlify.app/)
 - 🎤 Pitch do projeto: [LINK_AQUI](https://youtu.be/UeDXtRzku3E?si=AHA3SY_4vPSCNbf5)
 - 🎥 Vídeo do protótipo: [LINK_AQUI](https://youtu.be/QSe-rV9q17k?si=QDivQYrm9yRlpwHS)
